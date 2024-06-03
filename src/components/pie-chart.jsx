@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 
-export default function ChartPie({whenClicked}) {
+export default function ChartPie(props) {
   return (
-    <div onClick = {() => {whenClicked("Pie")}}>
+    <div onClick = {() => {props.whenClicked("Pie")}}>
         <PieChart
         series={[
             {
@@ -14,8 +14,7 @@ export default function ChartPie({whenClicked}) {
             ],
             },
         ]}
-        width={400}
-        height={200}
+        height = {props.height === "big"? 300 : 150}
         />
     </div>
   );

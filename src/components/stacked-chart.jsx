@@ -13,17 +13,16 @@ const seriesC = {
   label: 'Series C',
 };
 
-export default function ChartStack({whenClicked}) {
+export default function ChartStack(props) {
   return (
-    <div onClick = {() => {whenClicked("Stack")}}>
+    <div onClick = {() => {props.whenClicked("Stack")}}>
     <BarChart
-      width={600}
-      height={300}
       series={[
         { ...seriesA, stack: 'total' },
         { ...seriesB, stack: 'total' },
         { ...seriesC, stack: 'total' },
       ]}
+      height = {props.height === "big"? 300 : 150}
     />
     </div>
   );
