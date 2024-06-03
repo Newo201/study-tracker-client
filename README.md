@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# Study Tracker App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The goal of this app is to create a study tracker which enables the user to view how much
+study they have completed over a period of time. I wanted to build this app because I have
+been keeping track of my study through an excel spreadsheet, so I thought something which was
+more interactive and easier to complete could have a better user experience. I am also
+interested in exploring dynamic dashboarding so I thought this was a good way to incorporate
+this skill into a project.
 
-## Available Scripts
+## Server Side
 
-In the project directory, you can run:
+Initially the server side will be relatively simple. It will consist of http requests to post or
+retrieve information from a database. The database will consist of study units, with each row
+containing a date, study type (e.g. assignment, lecture etc.), subject and study unit
 
-### `npm start`
+- GET: the amount of study units completed (may also contain filtering)
+- POST: add a new study unit
+- PUT/PATCH: change an aspect of the study completed
+- DELETE: delete a row from the database
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Client Side
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Initially, the client side will contain 3 elements. The first will be a way for the user to add
+a new study unit. The second will be for the user to edit or delete completed study units. The third
+will be an interactive dashboard so that the user can see how much study they have completed.
 
-### `npm test`
+The dashboard will have a few different visualisations:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Line chart: a breakdown of how many units of study the user has completed each week
+- Pie Chart: percentage of study (by type and by subject)
+- Stacked Chart: combining these two ideas
