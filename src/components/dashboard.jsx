@@ -21,44 +21,61 @@ export default function Dashboard() {
                         <ChartLine height = "big" whenClicked = {manageClick}/>
                     </div>
                     <ChartStack height = "small" whenClicked = {manageClick}/>
-                    <ChartPie height = "small" whenClicked = {manageClick}/>
+                    <ChartPie height = "small" filter = "Subject" whenClicked = {manageClick}/>
+                    <ChartPie height = "small" filter = "Type" whenClicked = {manageClick}/>
                 </div>
             </div>
             )
-        case "Pie":
+        case "Subject":
             return (
                 <div className = "container">
                     <div className = "dashboard">
                         <div className = "big-chart">
-                            <ChartPie height = "big" whenClicked = {manageClick}/>
+                            <ChartPie height = "big" filter = "Subject" whenClicked = {manageClick}/>
                         </div>
+                        <ChartPie height = "small" filter = "Type" whenClicked = {manageClick}/>
                         <ChartStack height = "small" whenClicked = {manageClick}/>
                         <ChartLine height = "small" whenClicked = {manageClick}/>
                     </div>
                 </div>
             )
+        case "Type":
+            return (
+                <div className = "container">
+                <div className = "dashboard">
+                    <div className = "big-chart">
+                        <ChartPie height = "big" filter = "Type" whenClicked = {manageClick}/>
+                    </div>
+                    <ChartPie height = "small" filter = "Subject" whenClicked = {manageClick}/>
+                    <ChartStack height = "small" whenClicked = {manageClick}/>
+                    <ChartLine height = "small" whenClicked = {manageClick}/>
+                </div>
+            </div>
+            )
         case "Stack":
             return (
                 <div className = "container">
-                    <div className = "dashboard">
-                        <div className = "big-chart">
-                            <ChartStack height = "big" whenClicked = {manageClick}/>
-                        </div>
-                        <ChartLine height = "small" whenClicked = {manageClick}/>
-                        <ChartPie height = "small" whenClicked = {manageClick}/>
+                <div className = "dashboard">
+                    <div className = "big-chart">
+                        <ChartStack height = "big" whenClicked = {manageClick}/>
                     </div>
+                    <ChartLine height = "small" whenClicked = {manageClick}/>
+                    <ChartPie height = "small" filter = "Subject" whenClicked = {manageClick}/>
+                    <ChartPie height = "small" filter = "Type" whenClicked = {manageClick}/>
+                </div>
                 </div>
             )
         default: 
             return (
                 <div className = "container">
-                    <div className = "dashboard">
-                        <div className = "big-chart">
-                            <ChartLine whenClicked = {manageClick}/>
-                        </div>
-                        <ChartStack whenClicked = {manageClick}/>
-                        <ChartPie whenClicked = {manageClick}/>
+                <div className = "dashboard">
+                    <div className = "big-chart">
+                        <ChartLine height = "big" whenClicked = {manageClick}/>
                     </div>
+                    <ChartStack height = "small" whenClicked = {manageClick}/>
+                    <ChartPie height = "small" filter = "Subject" whenClicked = {manageClick}/>
+                    <ChartPie height = "small" filter = "Type" whenClicked = {manageClick}/>
+                </div>
                 </div>
             )
     }

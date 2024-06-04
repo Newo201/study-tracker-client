@@ -16,6 +16,7 @@ const seriesC = {
 export default function ChartStack(props) {
   return (
     <div onClick = {() => {props.whenClicked("Stack")}}>
+      <h3>Study Completed Per Week</h3>
     <BarChart
       series={[
         { ...seriesA, stack: 'total' },

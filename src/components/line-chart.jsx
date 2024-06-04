@@ -3,6 +3,7 @@ import {LineChart} from "@mui/x-charts"
 export default function ChartLine(props) {
     return (
         <div onClick = {() => {props.whenClicked("Line")}}>
+        <h3>Study Completed Per Week</h3>
         <LineChart
             xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
             series={[

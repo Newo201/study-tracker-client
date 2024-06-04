@@ -29,3 +29,9 @@ The dashboard will have a few different visualisations:
 - Line chart: a breakdown of how many units of study the user has completed each week
 - Pie Chart: percentage of study (by type and by subject)
 - Stacked Chart: combining these two ideas
+
+### Client Side ToDos
+
+- Add titles and axis labels to graphs
+- Style out the dashboard page
+- Add in a date picker section

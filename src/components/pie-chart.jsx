@@ -3,7 +3,8 @@ import { PieChart } from '@mui/x-charts/PieChart';
 
 export default function ChartPie(props) {
   return (
-    <div onClick = {() => {props.whenClicked("Pie")}}>
+    <div onClick = {() => {props.whenClicked(props.filter)}}>
+        <h3>Study Completed By {props.filter}</h3>
         <PieChart
         series={[
             {
