@@ -5,9 +5,11 @@ export default function ChartLine(props) {
         <div onClick = {() => {props.whenClicked("Line")}}>
         <h3>Study Completed Per Week</h3>
         <LineChart
-            xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+            xAxis={[{ data: [1, 2, 3, 5, 8, 10], label: 'Week' }]}
+            yAxis = {[{label: 'Study Completed'}]}
             series={[
                 {
+                curve: "linear",
                 data: [2, 5.5, 2, 8.5, 1.5, 5],
                 },
             ]}
