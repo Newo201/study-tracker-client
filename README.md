@@ -13,10 +13,21 @@ Initially the server side will be relatively simple. It will consist of http req
 retrieve information from a database. The database will consist of study units, with each row
 containing a date, study type (e.g. assignment, lecture etc.), subject and study unit
 
-- GET: the amount of study units completed (may also contain filtering)
-- POST: add a new study unit
-- PUT/PATCH: change an aspect of the study completed
-- DELETE: delete a row from the database
+- GET (/study): the amount of study units completed (may also contain filtering) by week (within a given date range)
+- GET (/study/subject): all study completed by subject (within a given date range)
+- GET (/study/type): all study completed by type (within a given date range)
+- GET (/study/subject/week): all study grouped by week and subject
+- GET (/study/type/week): all study grouped by week and type
+- POST (/study): add a new study unit
+- PUT/PATCH (/study/:id): change an aspect of the study completed
+- DELETE (/study/:id): delete a row from the database
+
+
+### Server Side ToDos
+
+- Construct the SQL Database and SQL Queries needed to perform filters
+- Add the API requests to the server
+- Backend testing
 
 ## Client Side
 
