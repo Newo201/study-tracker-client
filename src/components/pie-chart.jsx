@@ -1,18 +1,44 @@
-import * as React from 'react';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+const testData = [
+  { id: 0, value: 10, label: 'Maths'},
+  { id: 1, value: 15, label: 'Science'},
+  { id: 2, value: 20, label: 'English'},
+]
 
 //ToDo: make labels dynamic
 
 export default function ChartPie(props) {
 
-  let labels
+  const [pieData, setPieData] = useState(testData)
 
-  // This will likely be replaced once I have the API query
-  if (props.filter === "Type") {
-    labels = ['Lectures', 'Assignments', 'Tutorials']
-  } else {
-    labels = ['Maths', 'Science', 'English']
-  }
+  // let labels
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log(props.filter)
+      const response = await axios.post(`/study/${props.filter}`)
+      // console.log(response.data)
+
+      const data = response.data.map((row, index) => {
+        return ({id: index, 
+        value: row.study_completed, 
+        label: props.filter === 'subject'? row.subject: row.study_type})
+      })
+      setPieData(data)
+    }
+    fetchData()
+  }, [])
+
+  console.log(pieData)
+
+  // if (props.filter === "type") {
+  //   labels = ['Lectures', 'Assignments', 'Tutorials']
+  // } else {
+  //   labels = ['Maths', 'Science', 'English']
+  // }
 
   return (
     <div onClick = {() => {props.whenClicked(props.filter)}}>
@@ -21,18 +47,10 @@ export default function ChartPie(props) {
         series= {props.height === "big" ? 
           [{
             arcLabel: (item) => `${item.label}`,
-            data: [
-                { id: 0, value: 10, label: labels[0]},
-                { id: 1, value: 15, label: labels[1]},
-                { id: 2, value: 20, label: labels[2] },
-            ],
+            data: pieData
           }] :
           [{
-            data: [
-              { id: 0, value: 10, label: labels[0]},
-              { id: 1, value: 15, label: labels[1]},
-              { id: 2, value: 20, label: labels[2] },
-            ],
+            data: pieData
           }]
         }
         sx={{
