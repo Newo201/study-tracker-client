@@ -27,12 +27,10 @@ containing a date, study type (e.g. assignment, lecture etc.), subject and study
 
 - Construct the SQL Database and SQL Queries needed to perform filters ✓
 - Add the API requests to the server
-    - GET /study ✓
-    - GET /study/subject
-    - GET /study/type
-    - GET /study/subject/week
-    - GET /study/type/week
-    - POST /study
+    - POST /study ✓
+    - POST /study/subject ✓
+    - POST /study/type ✓
+    - POST /study/add
     - PUT/PATCH /study/:id
     - DELETE /study:/id
 - Backend testing
