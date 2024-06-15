@@ -24,6 +24,7 @@ const testData = [
 export default function ChartStack(props) {
 
   const [chartData, setChartData] = useState(testData)
+  const [weeks, setWeeks] = useState([1,2,3,4,5])
 
   useEffect(() => {
     const fetchData = async() => {
@@ -33,6 +34,7 @@ export default function ChartStack(props) {
         console.log(data)
         // Find unique weeks and subject types
         const uniqueWeeks = new Set(data.map(row => row.week_completed))
+        setWeeks(Array.from(uniqueWeeks))
         const uniqueTypes = new Set(data.map(row => row.study_type))
         console.log(uniqueWeeks, uniqueTypes)
         // Group Data into a nested object with first level as study type and second level as week completed
@@ -45,13 +47,20 @@ export default function ChartStack(props) {
                 data_dict[row.study_type] = {}
             }
         })
-        console.log(data_dict)
         // Loop through each week and each type to get the data into desired format
-        uniqueWeeks.forEach(week => {
-          uniqueTypes.forEach(type => {
-            console.log(week, type)
+        const graph_data = []
+        uniqueTypes.forEach(type => {
+          let lst = []
+          uniqueWeeks.forEach(week => {
+            if (data_dict[type][week]) {
+              lst.push(data_dict[type][week])
+            } else {
+              lst.push(0)
+            }
           })
+          graph_data.push({data: lst, label: type, stack: 'total'})
         })
+        setChartData(graph_data)
     }
     fetchData()
 }, [])
@@ -60,7 +69,7 @@ export default function ChartStack(props) {
     <div onClick = {() => {props.whenClicked("Stack")}}>
       <h3>Study Completed Per Week</h3>
     <BarChart
-      xAxis = {[{scaleType: 'band', data: [1,2,3,4,5], label: 'Week'}]}
+      xAxis = {[{scaleType: 'band', data: weeks, label: 'Week'}]}
       yAxis = {[{label: 'Study Completed'}]}
       series={chartData}
       height = {props.height === "big"? 300 : 150}
