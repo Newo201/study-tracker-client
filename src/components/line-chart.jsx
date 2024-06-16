@@ -1,33 +1,32 @@
 import {LineChart} from "@mui/x-charts"
 import { useState, useEffect, useCallback } from "react"
 import axios from "axios"
+import useAxios from "../hooks/useAxios"
+import useFetch from "../hooks/useFetch"
 
 export default function ChartLine(props) {
 
-    const [chartData, setChartData] = useState({'weeks': [22, 23], 'study': [1, 5]})
+    // const {dateRange, setDateRange} = useState({start_date: "2024-05-01", end_date: "2024-07-01"})
 
-    // const fetchData = useCallback(async () => {
-    //     const response = await axios.post("/study")
-    //     const weeks = (response.data.map(row => (row.week_completed)))
-    //     const study_completed =  (response.data.map(row => (parseInt(row.study_completed))))
-    //     // setChartData({'weeks': weeks, 'study': study_completed})
-    //     setChartData(1)
-    //     console.log(chartData)
-    // })
+    const [chartData, setChartData] = useState({'weeks': [22, 23], 'study': [1, 5]})
+    const {loading, error, value} = useAxios("/study", 
+        {method: 'get', 
+        params: {start_date: "2024-05-01", end_date: "2024-07-01"}}
+    )
+
+    function wrangle_data(data) {
+        const weeks = data.map(row => row.week_completed)
+        const study = data.map(row => row.study_completed)
+        return {'weeks': weeks, 'study': study}
+    }
 
     useEffect(() => {
-        const fetchData = async() => {
-            const result = await axios.post("/study")
-            const data = result.data
-            // Make the data into two arrays for weeks and study
-            const weeks = data.map(row => row.week_completed)
-            const study = data.map(row => row.study_completed)
-            setChartData({'weeks': weeks, 'study': study})
+        if (value) {
+            console.log(value)
+            setChartData(wrangle_data(value))
         }
-        fetchData()
-    }, [])
-
-    // console.log(chartData)
+    }, [value]
+    )
 
     return (
         <div onClick = {() => {props.whenClicked("Line")}}>
@@ -43,6 +42,9 @@ export default function ChartLine(props) {
             ]}
             height = {props.height === "big"? 300 : 150}
         />
+        {/* <div>
+            {JSON.stringify(value, null, 2)}
+        </div> */}
         </div>
     )
 }

@@ -51,6 +51,10 @@ The dashboard will have a few different visualisations:
 
 - Add titles and axis labels to graphs ✓
 - Remove labels when graphs are small
+- Create a custom hook for updating the dashboard
+    - useAsync
+    - useFetch
+    - useUpdateDashboard
 - Change position of elements on dashboard without causing data to re-render
     - Probably have to make the API calls at the dashboard level
 - Style out the dashboard page
