@@ -27,9 +27,9 @@ containing a date, study type (e.g. assignment, lecture etc.), subject and study
 
 - Construct the SQL Database and SQL Queries needed to perform filters ✓
 - Add the API requests to the server
-    - POST /study ✓
-    - POST /study/subject ✓
-    - POST /study/type ✓
+    - GET /study ✓
+    - GET /study/subject ✓
+    - GET /study/type ✓
     - POST /study/add
     - PUT/PATCH /study/:id
     - DELETE /study:/id
@@ -52,9 +52,11 @@ The dashboard will have a few different visualisations:
 - Add titles and axis labels to graphs ✓
 - Remove labels when graphs are small
 - Create a custom hook for updating the dashboard
-    - useAsync
-    - useFetch
+    - useAsync ✓
+    - useFetch ✓
+    - useAxios ✓
     - useUpdateDashboard
+        - Look into making parallel requests with axios
 - Change position of elements on dashboard without causing data to re-render
     - Probably have to make the API calls at the dashboard level
 - Style out the dashboard page

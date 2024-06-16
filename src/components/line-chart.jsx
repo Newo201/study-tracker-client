@@ -22,7 +22,6 @@ export default function ChartLine(props) {
 
     useEffect(() => {
         if (value) {
-            console.log(value)
             setChartData(wrangle_data(value))
         }
     }, [value]

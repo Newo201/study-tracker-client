@@ -20,7 +20,7 @@ export default function Dashboard() {
                     <div className = "big-chart">
                         <ChartLine height = "big" whenClicked = {manageClick}/>
                     </div>
-                    <ChartStack height = "small" whenClicked = {manageClick}/>
+                    <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
                     <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
                     <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
                 </div>
@@ -34,7 +34,7 @@ export default function Dashboard() {
                             <ChartPie height = "big" filter = "subject" whenClicked = {manageClick}/>
                         </div>
                         <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
-                        <ChartStack height = "small" whenClicked = {manageClick}/>
+                        <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
                         <ChartLine height = "small" whenClicked = {manageClick}/>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ export default function Dashboard() {
                         <ChartPie height = "big" filter = "type" whenClicked = {manageClick}/>
                     </div>
                     <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
-                    <ChartStack height = "small" whenClicked = {manageClick}/>
+                    <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
                     <ChartLine height = "small" whenClicked = {manageClick}/>
                 </div>
             </div>
@@ -57,7 +57,7 @@ export default function Dashboard() {
                 <div className = "container">
                 <div className = "dashboard">
                     <div className = "big-chart">
-                        <ChartStack height = "big" whenClicked = {manageClick}/>
+                        <ChartStack height = "big" filter = "type" whenClicked = {manageClick}/>
                     </div>
                     <ChartLine height = "small" whenClicked = {manageClick}/>
                     <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
@@ -72,7 +72,7 @@ export default function Dashboard() {
                     <div className = "big-chart">
                         <ChartLine height = "big" whenClicked = {manageClick}/>
                     </div>
-                    <ChartStack height = "small" whenClicked = {manageClick}/>
+                    <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
                     <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
                     <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
                 </div>

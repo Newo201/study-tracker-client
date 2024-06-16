@@ -1,5 +1,6 @@
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import axios from 'axios';
+import useAxios from "../hooks/useAxios"
 import { useEffect, useState } from 'react';
 
 const testData = [
@@ -8,37 +9,29 @@ const testData = [
   { id: 2, value: 20, label: 'English'},
 ]
 
-//ToDo: make labels dynamic
-
 export default function ChartPie(props) {
 
   const [pieData, setPieData] = useState(testData)
+  const {loading, error, value} = useAxios(`/study/${props.filter}`, 
+    {method: 'get', 
+    params: {start_date: "2024-05-01", end_date: "2024-07-01"}}
+  )
 
-  // let labels
+  function wrangle_data(data) {
+    const newData = data.map((row, index) => {
+      return ({id: index, 
+      value: row.study_completed, 
+      label: props.filter === 'subject'? row.subject: row.study_type})
+    })
+    return newData
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      console.log(props.filter)
-      const response = await axios.post(`/study/${props.filter}`)
-      // console.log(response.data)
-
-      const data = response.data.map((row, index) => {
-        return ({id: index, 
-        value: row.study_completed, 
-        label: props.filter === 'subject'? row.subject: row.study_type})
-      })
-      setPieData(data)
+    if (value) {
+        setPieData(wrangle_data(value))
     }
-    fetchData()
-  }, [])
-
-  console.log(pieData)
-
-  // if (props.filter === "type") {
-  //   labels = ['Lectures', 'Assignments', 'Tutorials']
-  // } else {
-  //   labels = ['Maths', 'Science', 'English']
-  // }
+    }, [value]
+  )
 
   return (
     <div onClick = {() => {props.whenClicked(props.filter)}}>
