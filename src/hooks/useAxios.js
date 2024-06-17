@@ -1,7 +1,7 @@
 import useAsync from "./useAsync"
 import axios from "axios"
 
-export default function useFetch(url, options = {}, dependencies = []) {
+export default function useAxios(url, options = {}, dependencies = []) {
     return useAsync(() => {
         return axios({url: url, ...options})
             .then(res => {

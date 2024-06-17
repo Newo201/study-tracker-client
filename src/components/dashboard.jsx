@@ -2,6 +2,7 @@ import ChartLine from "./line-chart"
 import ChartStack from "./stacked-chart"
 import ChartPie from "./pie-chart"
 import { useState } from "react"
+import Test from "./test"
 
 export default function Dashboard() {
 
@@ -16,6 +17,7 @@ export default function Dashboard() {
         case "Line":
             return (
             <div className = "container">
+                <Test />
                 <div className = "dashboard">
                     <div className = "big-chart">
                         <ChartLine height = "big" whenClicked = {manageClick}/>
