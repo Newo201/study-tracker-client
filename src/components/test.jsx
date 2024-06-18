@@ -1,27 +1,31 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
+import useAsync from "../hooks/useAsync"
 
 export default function Test() {
 
-    const [firstToDo, setFirstToDO] = useState({})
-    const [secondToDo, setSecondToDo] = useState({})
+    const [ToDos, setToDos] = useState([])
+
+    const {loading, error, value} = useAsync(() => {
+        return axios.all([
+                axios('https://jsonplaceholder.typicode.com/todos/1', {method: 'get'}),
+                axios('https://jsonplaceholder.typicode.com/todos/2', {method: 'get'})
+        ]).then(responses => {
+            return responses.map(response => response.data)
+        })
+    }, [])
 
     useEffect(() => {
-        axios.all([
-            axios('https://jsonplaceholder.typicode.com/todos/1', {method: 'get'}),
-            axios('https://jsonplaceholder.typicode.com/todos/2', {method: 'get'})
-        ])
-        .then(axios.spread((data1, data2) => {
-            console.log('data1', data1.data, 'data2', data2.data)
-            setFirstToDO(data1.data)
-            setSecondToDo(data2.data)
-        }));
-    }, [])
+        if (!loading) {
+            setToDos(value.map(todo => todo.title))
+        }
+    }, [loading])
 
 
     return (
         <>
-        <div>{firstToDo.title}</div>
+        <div>Loading: {loading.toString()}</div>
+        <div>{ToDos.map(todo => <li>{todo}</li>)}</div>
         </>
     )
 }

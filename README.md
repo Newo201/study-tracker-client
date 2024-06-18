@@ -56,8 +56,9 @@ The dashboard will have a few different visualisations:
     - useFetch ✓
     - useAxios ✓
     - useUpdateDashboard
-        - Look into making parallel requests with axios
+        - Look into making parallel requests with axios ✓
 - Change position of elements on dashboard without causing data to re-render
     - Probably have to make the API calls at the dashboard level
+    - Could at this into the useUpdateDashboard hook
 - Style out the dashboard page
 - Add in a date picker section

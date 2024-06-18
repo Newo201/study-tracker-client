@@ -1,4 +1,5 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
+import useAxiosMultiple from "./useAxiosMultiple"
 
 // Test Data
 const testLineData = {'weeks': [22, 23], 'study': [1, 5]}
@@ -33,11 +34,11 @@ function wrangleLineData(data) {
     return {'weeks': weeks, 'study': study}
 }
 
-function wranglePieData(data) {
+function wranglePieData(data, filter) {
     const newData = data.map((row, index) => {
       return ({id: index, 
       value: row.study_completed, 
-      label: props.filter === 'subject'? row.subject: row.study_type})
+      label: filter === 'subject'? row.subject: row.study_type})
     })
     return newData
   }
@@ -77,27 +78,50 @@ export default function useUpdateDashboard(date_range) {
 
     const [allChartData, setAllChartData] = useState({})
 
-    const {start_date, end_date} = date_range
+    const {start_date, end_date} = useRef(date_range)
 
     const configs = [
-        {url: "/study", method: "/get", params: {start_date, end_date}},
-        {url: "/study/subject", method: "/get", params: {start_date, end_date}},   
-        {url: "/study/type", method: "/get", params: {start_date, end_date}},  
-        {url: "/study/type", method: "/get", params: {start_date, end_date, filterWeek: true}}
+        {url: "/study", method: "get", params: {start_date, end_date}},
+        {url: "/study/subject", method: "get", params: {start_date, end_date}},   
+        {url: "/study/type", method: "get", params: {start_date, end_date}},  
+        {url: "/study/type", method: "get", params: {start_date, end_date, filterWeek: true}}
     ]
 
-    const requests = configs.map(config => axios(...config))
+    const {loading, error, value} = useAxiosMultiple(configs, [])
+
+    // const requests = configs.map(config => axios(...config))
 
     useEffect(() => {
-        axios.all(requests)
-        .then(axios.spread((lineChartData, pieSubjectData, pieTypeData, stackChartData) => {
-            setAllChartData({
-                'line': wrangleLineData(lineChartData),
-                'pieSubject': wranglePieData(pieSubjectData),
-                'pieType': wranglePieData(pieTypeData),
-                'stack': wrangleStackData(stackChartData)
-            })
-        }))
-    }, [start_date, end_date])
+        if (!loading) {
+            
+            console.log(error)
+            console.log(value)
 
+            const lineChartData = wrangleLineData(value[0])
+            const pieSubjectData = wranglePieData(value[1], "subject")
+            const pieTypeData = wranglePieData(value[2], "type")
+            const stackChartData = wrangleStackData(value[3])
+
+            setAllChartData({
+                'line': lineChartData,
+                'pieSubject': pieSubjectData,
+                'pieType': pieTypeData,
+                'stack': stackChartData
+            })
+        }
+
+    }, [loading])
+
+    // useEffect(() => {
+    //     axios.all(requests)
+    //     .then(axios.spread((lineChartData, pieSubjectData, pieTypeData, stackChartData) => {
+    //         setAllChartData({
+    //             'line': wrangleLineData(lineChartData),
+    //             'pieSubject': wranglePieData(pieSubjectData),
+    //             'pieType': wranglePieData(pieTypeData),
+    //             'stack': wrangleStackData(stackChartData)
+    //         })
+    //     }))
+    // }, [start_date, end_date])
+    return allChartData
 }

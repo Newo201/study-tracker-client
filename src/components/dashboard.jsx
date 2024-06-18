@@ -1,17 +1,27 @@
 import ChartLine from "./line-chart"
 import ChartStack from "./stacked-chart"
 import ChartPie from "./pie-chart"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Test from "./test"
+import useUpdateDashboard from "../hooks/useUpdateDashboard"
 
 export default function Dashboard() {
 
     const [topChart, setTopChart] = useState("Line")
 
+    const start_date = "2024-05-01"
+    const end_date = "2024-07-01"
+
+    const data = useUpdateDashboard({start_date: start_date, end_date: end_date})
+
     function manageClick(chart) {
         console.log(`${chart} chart has been clicked`)
         setTopChart(chart)
     }
+
+    // useEffect(() => {
+    //     console.log(data)
+    // }, [data])
 
     switch(topChart) {
         case "Line":
