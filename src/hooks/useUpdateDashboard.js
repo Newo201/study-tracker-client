@@ -78,7 +78,7 @@ export default function useUpdateDashboard(date_range) {
 
     const [allChartData, setAllChartData] = useState({})
 
-    const {start_date, end_date} = useRef(date_range)
+    const {start_date, end_date} = date_range
 
     const configs = [
         {url: "/study", method: "get", params: {start_date, end_date}},
@@ -123,5 +123,5 @@ export default function useUpdateDashboard(date_range) {
     //         })
     //     }))
     // }, [start_date, end_date])
-    return allChartData
+    return {loading, error, allChartData}
 }

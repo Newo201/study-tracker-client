@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 export default function useAsync(callback, dependencies = []) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState()
-    const [value, setValue] = useState()
+    const [value, setValue] = useState([])
 
     // Setting up the callback
     const callbackMemoized = useCallback(() => {
@@ -11,7 +11,10 @@ export default function useAsync(callback, dependencies = []) {
         setError(undefined)
         setValue(undefined)
         callback()
-            .then(setValue)
+            .then((response) => {
+                console.log(response)
+                setValue(response)
+            })
             .catch(setError)
             .finally(() => setLoading(false))
     }, dependencies)
@@ -20,6 +23,10 @@ export default function useAsync(callback, dependencies = []) {
     useEffect(() => {
         callbackMemoized()
     }, [callbackMemoized])
+
+    useEffect(() => {
+        console.log(value)
+    }, [value])
 
     return {loading, error, value}
 }

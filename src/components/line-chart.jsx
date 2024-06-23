@@ -6,37 +6,40 @@ import useFetch from "../hooks/useFetch"
 
 export default function ChartLine(props) {
 
-    // const {dateRange, setDateRange} = useState({start_date: "2024-05-01", end_date: "2024-07-01"})
 
-    const [chartData, setChartData] = useState({'weeks': [22, 23], 'study': [1, 5]})
-    const {loading, error, value} = useAxios("/study", 
-        {method: 'get', 
-        params: {start_date: "2024-05-01", end_date: "2024-07-01"}}
-    )
+    // const [chartData, setChartData] = useState({'weeks': [22, 23], 'study': [1, 5]})
+    // const {loading, error, value} = useAxios("/study", 
+    //     {method: 'get', 
+    //     params: {start_date: "2024-05-01", end_date: "2024-07-01"}}
+    // )
 
-    function wrangle_data(data) {
-        const weeks = data.map(row => row.week_completed)
-        const study = data.map(row => row.study_completed)
-        return {'weeks': weeks, 'study': study}
-    }
+    // function wrangle_data(data) {
+    //     const weeks = data.map(row => row.week_completed)
+    //     const study = data.map(row => row.study_completed)
+    //     return {'weeks': weeks, 'study': study}
+    // }
 
-    useEffect(() => {
-        if (value) {
-            setChartData(wrangle_data(value))
-        }
-    }, [value]
-    )
+    // useEffect(() => {
+    //     if (value) {
+    //         setChartData(wrangle_data(value))
+    //     }
+    // }, [value]
+    // )
+
+    console.log(props.data)
+
 
     return (
-        <div onClick = {() => {props.whenClicked("Line")}}>
+        !props.loading ?
+        <div onClick = {() => {props.whenClicked("line")}}>
         <h3>Study Completed Per Week</h3>
         <LineChart
-            xAxis={[{ data: chartData.weeks, label: 'Week' }]}
+            xAxis={[{ data: props.data.weeks, label: 'Week' }]}
             yAxis = {[{label: 'Study Completed'}]}
             series={[
                 {
                 curve: "linear",
-                data: chartData.study,
+                data: props.data.study,
                 },
             ]}
             height = {props.height === "big"? 300 : 150}
@@ -45,5 +48,7 @@ export default function ChartLine(props) {
             {JSON.stringify(value, null, 2)}
         </div> */}
         </div>
+        :
+        <div>Loading ...</div>
     )
 }
