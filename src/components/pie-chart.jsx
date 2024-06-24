@@ -39,11 +39,11 @@ export default function ChartPie(props) {
         <PieChart
         series= {props.height === "big" ? 
           [{
-            arcLabel: (item) => `${item.label}`,
-            data: props.data
+            // arcLabel: (item) => `${item.label}`,
+            data: props.data ? props.data : testData
           }] :
           [{
-            data: props.data
+            data: props.data ? props.data : testData
           }]
         }
         sx={{

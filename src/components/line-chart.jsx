@@ -4,6 +4,8 @@ import axios from "axios"
 import useAxios from "../hooks/useAxios"
 import useFetch from "../hooks/useFetch"
 
+const testData = {'weeks': [22, 23], 'study': [1, 5]}
+
 export default function ChartLine(props) {
 
 
@@ -34,12 +36,12 @@ export default function ChartLine(props) {
         <div onClick = {() => {props.whenClicked("line")}}>
         <h3>Study Completed Per Week</h3>
         <LineChart
-            xAxis={[{ data: props.data.weeks, label: 'Week' }]}
+            xAxis={[{ data: props.data ? props.data.weeks: testData.weeks, label: 'Week' }]}
             yAxis = {[{label: 'Study Completed'}]}
             series={[
                 {
                 curve: "linear",
-                data: props.data.study,
+                data: props.data ? props.data.study: testData.study,
                 },
             ]}
             height = {props.height === "big"? 300 : 150}

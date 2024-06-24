@@ -73,9 +73,9 @@ export default function ChartStack(props) {
     <div onClick = {() => {props.whenClicked("Stack")}}>
       <h3>Study Completed Per Week</h3>
     <BarChart
-      xAxis = {[{scaleType: 'band', data: props.data[0], label: 'Week'}]}
+      xAxis = {[{scaleType: 'band', data: props.data ? props.data[0]: [22, 23], label: 'Week'}]}
       yAxis = {[{label: 'Study Completed'}]}
-      series= {props.data[1]}
+      series= {props.data ? props.data[1]: testData}
       height = {props.height === "big"? 300 : 150}
     />
     </div>

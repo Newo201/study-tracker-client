@@ -1,5 +1,7 @@
 import {useState, useEffect, useRef} from "react"
 import useAxiosMultiple from "./useAxiosMultiple"
+import useAsync from "./useAsync"
+import axios from "axios"
 
 // Test Data
 const testLineData = {'weeks': [22, 23], 'study': [1, 5]}
@@ -89,11 +91,16 @@ export default function useUpdateDashboard(date_range) {
 
     const {loading, error, value} = useAxiosMultiple(configs, [])
 
+    // const {loading, error, value} = useAxiosMultiple(configs, [])
+    // console.log(loading, value)
+
     // const requests = configs.map(config => axios(...config))
 
     useEffect(() => {
+        console.log(loading)
         if (!loading) {
             
+            console.log("Hello")
             console.log(error)
             console.log(value)
 
@@ -102,19 +109,36 @@ export default function useUpdateDashboard(date_range) {
             const pieTypeData = wranglePieData(value[2], "type")
             const stackChartData = wrangleStackData(value[3])
 
-            setAllChartData({
+            const newData = {
                 'line': lineChartData,
                 'pieSubject': pieSubjectData,
                 'pieType': pieTypeData,
                 'stack': stackChartData
-            })
+            }
+
+            setAllChartData(newData)
         }
 
-    }, [loading])
+        console.log(value)
+
+        // const lineChartData = wrangleLineData(value[0])
+        // const pieSubjectData = wranglePieData(value[1], "subject")
+        // const pieTypeData = wranglePieData(value[2], "type")
+        // const stackChartData = wrangleStackData(value[3])
+
+        // setAllChartData({
+        //     'line': lineChartData,
+        //     'pieSubject': pieSubjectData,
+        //     'pieType': pieTypeData,
+        //     'stack': stackChartData
+        // })
+
+    }, [loading, error, value])
 
     // useEffect(() => {
-    //     axios.all(requests)
+    //     axios.all(configs.map(request => axios({...request})))
     //     .then(axios.spread((lineChartData, pieSubjectData, pieTypeData, stackChartData) => {
+    //         console.log(lineChartData)
     //         setAllChartData({
     //             'line': wrangleLineData(lineChartData),
     //             'pieSubject': wranglePieData(pieSubjectData),
@@ -122,6 +146,9 @@ export default function useUpdateDashboard(date_range) {
     //             'stack': wrangleStackData(stackChartData)
     //         })
     //     }))
-    // }, [start_date, end_date])
-    return {loading, error, allChartData}
+    // }, [])
+
+
+    // console.log(allChartData)
+    return allChartData
 }

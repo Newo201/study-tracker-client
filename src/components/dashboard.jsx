@@ -16,7 +16,11 @@ export default function Dashboard() {
     const start_date = "2024-05-01"
     const end_date = "2024-07-01"
 
-    const {loading, error, allChartData} = useUpdateDashboard({start_date: start_date, end_date: end_date})
+    const loading = false
+    const error = null
+
+    const allChartData = useUpdateDashboard({start_date: start_date, end_date: end_date})
+    console.log(allChartData)
 
     function manageClick(chart) {
         console.log(`${chart} chart has been clicked`)
