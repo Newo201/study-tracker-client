@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import useUpdateDashboard from "../hooks/useUpdateDashboard"
 import DashboardChart from "./dashboard-chart"
 import Test from "./test"
+import DatePickerValue from "./date-picker"
 
 export default function Dashboard() {
 
@@ -33,6 +34,7 @@ export default function Dashboard() {
     return (
         !loading ?
         <div className = "container">
+            <DatePickerValue />
         <div className = "dashboard">
             {console.log(dashboardOrder)}
             {dashboardOrder.map((chartType, index) => {
