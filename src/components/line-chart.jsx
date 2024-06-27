@@ -28,7 +28,7 @@ export default function ChartLine(props) {
     // }, [value]
     // )
 
-    console.log(props.data)
+    // console.log(props.data)
 
 
     return (

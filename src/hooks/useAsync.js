@@ -17,7 +17,7 @@ export default function useAsync(callback, dependencies = []) {
             })
             .catch(setError)
             .finally(() => setLoading(false))
-    }, [...dependencies, callback])
+    }, dependencies)
 
     // Calling the callback
     useEffect(() => {

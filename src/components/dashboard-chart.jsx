@@ -9,22 +9,22 @@ export default function DashboardChart(props) {
         case 'line':
             return (
                 <ChartLine height = {props.height} data = {props.data} 
-                loading = {props.loading}/>
+                loading = {props.loading} whenClicked = {props.whenClicked}/>
             )
         case 'pieSubject':
             return (
-                <ChartPie height = {props.height} data = {props.data} 
-                loading = {props.loading}/>
+                <ChartPie name = 'pieSubject' height = {props.height} data = {props.data} 
+                loading = {props.loading} whenClicked = {props.whenClicked}/>
             )
         case 'pieType':
             return (
-                <ChartPie height = {props.height} data = {props.data} 
-                loading = {props.loading}/>
+                <ChartPie name = 'pieType' height = {props.height} data = {props.data} 
+                loading = {props.loading} whenClicked = {props.whenClicked}/>
             )
         case 'stack':
             return (
                 <ChartStack height = {props.height} data = {props.data} 
-                loading = {props.loading}/>
+                loading = {props.loading} whenClicked = {props.whenClicked}/>
             )
         default:
             return (

@@ -97,7 +97,7 @@ export default function useUpdateDashboard(date_range) {
     // const requests = configs.map(config => axios(...config))
 
     useEffect(() => {
-        console.log(loading)
+        // console.log(loading)
         if (!loading) {
             
             console.log("Hello")
@@ -119,7 +119,7 @@ export default function useUpdateDashboard(date_range) {
             setAllChartData(newData)
         }
 
-        console.log(value)
+        // console.log(value)
 
         // const lineChartData = wrangleLineData(value[0])
         // const pieSubjectData = wranglePieData(value[1], "subject")
@@ -150,5 +150,5 @@ export default function useUpdateDashboard(date_range) {
 
 
     // console.log(allChartData)
-    return allChartData
+    return {loading, error, allChartData}
 }
