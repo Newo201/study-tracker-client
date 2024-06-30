@@ -35,7 +35,7 @@ export default function ChartPie(props) {
 
   return (
     <div onClick = {() => {props.whenClicked(props.name)}}>
-        <h3>Study Completed By {props.name.slice(3)}</h3>
+        <h4>Study Completed By {props.name.slice(3)}</h4>
         <PieChart
         series= {props.height === "big" ? 
           [{

@@ -34,7 +34,7 @@ export default function ChartLine(props) {
     return (
         !props.loading ?
         <div onClick = {() => {props.whenClicked("line")}}>
-        <h3>Study Completed Per Week</h3>
+        <h4>Study Completed Per Week</h4>
         <LineChart
             xAxis={[{ data: props.data ? props.data.weeks: testData.weeks, label: 'Week' }]}
             yAxis = {[{label: 'Study Completed'}]}

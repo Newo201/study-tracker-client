@@ -33,8 +33,7 @@ export default function Dashboard() {
 
     return (
         !loading ?
-        <div className = "container">
-            <DatePickerValue />
+        <div className = "container pt-5">
         <div className = "dashboard">
             {console.log(dashboardOrder)}
             {dashboardOrder.map((chartType, index) => {
