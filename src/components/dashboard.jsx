@@ -24,7 +24,7 @@ export default function Dashboard({loading, error, allChartData}) {
         !loading ?
         <div className = "container pt-5">
         <div className = "dashboard">
-            {console.log(dashboardOrder, loading)}
+            {console.log(dashboardOrder)}
             {dashboardOrder.map((chartType, index) => {
                 // The first chart in the list is displayed bigger and the other charts are smaller
                 if (index === 0) {

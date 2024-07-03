@@ -49,17 +49,29 @@ The dashboard will have a few different visualisations:
 
 ### Client Side ToDos
 
+#### Dashboard Component
+
 - Add titles and axis labels to graphs ✓
-- Remove labels when graphs are small
 - Create a custom hook for updating the dashboard
     - useAsync ✓
     - useFetch ✓
-    - useAxios ✓
+    - useAxios and useAxiosMultiple ✓
     - useUpdateDashboard ✓
-        - Look into making parallel requests with axios ✓
 - Change position of elements on dashboard without causing data to re-render ✓
-    - Probably have to make the API calls at the dashboard level
-    - Could at this into the useUpdateDashboard hook ✓
-- Style out the dashboard page
 - Add in a date picker section ✓
-- Connect Date Picker to updating dashboard
+- Connect Date Picker to updating dashboard ✓
+- Style out the dashboard page
+    - Remove labels when graphs are small
+    - Navbar and Footer Components
+
+#### Study Log Component
+
+- Create a ToDo component with add, edit, delete capabilities
+    - Use the bootstrap features
+- Allow user to select different type and subject of study
+    - Ideally they should be able to do this on the ToDo card as they are adding/editing it (e.g. with dropdowns)
+- Connect the ToDos to a database
+- Add a complete capability
+    - Make a post request to add the study to the database
+    - Remove the ToDo from the list or move it to a different section (e.g. a completed page)
+- Create a form where users can add new study types and subjects
