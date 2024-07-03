@@ -1,32 +1,30 @@
-import {useState, useEffect, useRef} from "react"
+import {useState, useEffect} from "react"
 import useAxiosMultiple from "./useAxiosMultiple"
-import useAsync from "./useAsync"
-import axios from "axios"
 
-// Test Data
-const testLineData = {'weeks': [22, 23], 'study': [1, 5]}
-const testPieData =  [
-    { id: 0, value: 10, label: 'Maths'},
-    { id: 1, value: 15, label: 'Science'},
-    { id: 2, value: 20, label: 'English'},
-] 
-const seriesA = {
-    data: [2, 3, 1, 4, 5],
-    label: 'Assignments',
-};
-const seriesB = {
-    data: [3, 1, 4, 2, 1],
-    label: 'Lectures',
-};
-const seriesC = {
-    data: [3, 2, 4, 5, 1],
-    label: 'Tutorials',
-}; 
-const testStackData = [
-    { ...seriesA, stack: 'total' },
-    { ...seriesB, stack: 'total' },
-    { ...seriesC, stack: 'total' },
-]
+// // Test Data
+// const testLineData = {'weeks': [22, 23], 'study': [1, 5]}
+// const testPieData =  [
+//     { id: 0, value: 10, label: 'Maths'},
+//     { id: 1, value: 15, label: 'Science'},
+//     { id: 2, value: 20, label: 'English'},
+// ] 
+// const seriesA = {
+//     data: [2, 3, 1, 4, 5],
+//     label: 'Assignments',
+// };
+// const seriesB = {
+//     data: [3, 1, 4, 2, 1],
+//     label: 'Lectures',
+// };
+// const seriesC = {
+//     data: [3, 2, 4, 5, 1],
+//     label: 'Tutorials',
+// }; 
+// const testStackData = [
+//     { ...seriesA, stack: 'total' },
+//     { ...seriesB, stack: 'total' },
+//     { ...seriesC, stack: 'total' },
+// ]
 
 // Wrangle Data Functions
 
@@ -91,11 +89,6 @@ export default function useUpdateDashboard(date_range, dependencies = []) {
 
     const {loading, error, value} = useAxiosMultiple(configs, dependencies)
 
-    // const {loading, error, value} = useAxiosMultiple(configs, [])
-    // console.log(loading, value)
-
-    // const requests = configs.map(config => axios(...config))
-
     useEffect(() => {
         // console.log(loading)
         if (!loading) {
@@ -119,36 +112,7 @@ export default function useUpdateDashboard(date_range, dependencies = []) {
             setAllChartData(newData)
         }
 
-        // console.log(value)
-
-        // const lineChartData = wrangleLineData(value[0])
-        // const pieSubjectData = wranglePieData(value[1], "subject")
-        // const pieTypeData = wranglePieData(value[2], "type")
-        // const stackChartData = wrangleStackData(value[3])
-
-        // setAllChartData({
-        //     'line': lineChartData,
-        //     'pieSubject': pieSubjectData,
-        //     'pieType': pieTypeData,
-        //     'stack': stackChartData
-        // })
-
     }, [loading, error, value])
 
-    // useEffect(() => {
-    //     axios.all(configs.map(request => axios({...request})))
-    //     .then(axios.spread((lineChartData, pieSubjectData, pieTypeData, stackChartData) => {
-    //         console.log(lineChartData)
-    //         setAllChartData({
-    //             'line': wrangleLineData(lineChartData),
-    //             'pieSubject': wranglePieData(pieSubjectData),
-    //             'pieType': wranglePieData(pieTypeData),
-    //             'stack': wrangleStackData(stackChartData)
-    //         })
-    //     }))
-    // }, [])
-
-
-    // console.log(allChartData)
     return {loading, error, allChartData}
 }

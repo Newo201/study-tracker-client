@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
-import useUpdateDashboard from "../hooks/useUpdateDashboard"
+import { useState } from "react"
 import DashboardChart from "./dashboard-chart"
-import Test from "./test"
-import DatePickerValue from "./date-picker"
+
+const bigHeight = 300
+const smallHeight = 150
 
 export default function Dashboard({loading, error, allChartData}) {
 
@@ -13,9 +13,10 @@ export default function Dashboard({loading, error, allChartData}) {
         'stack'
     ])
 
+    // Change the dashboard order to display the clicked chart first
+    // This will not call the API so we don't need to reload the data
     function manageClick(chart) {
         console.log(`${chart} chart has been clicked`)
-        let currentOrder = dashboardOrder.indexOf(chart)
         setDashboardOrder(prevOrder => [chart, ...prevOrder.filter(item => item !== chart)])
     }
 
@@ -23,104 +24,28 @@ export default function Dashboard({loading, error, allChartData}) {
         !loading ?
         <div className = "container pt-5">
         <div className = "dashboard">
-            {console.log(dashboardOrder)}
+            {console.log(dashboardOrder, loading)}
             {dashboardOrder.map((chartType, index) => {
+                // The first chart in the list is displayed bigger and the other charts are smaller
                 if (index === 0) {
                     return (
                         <div className = "big-chart">
-                            <DashboardChart type = {chartType} height = "big" data = {allChartData[chartType]} 
+                            <DashboardChart type = {chartType} height = {bigHeight} data = {allChartData[chartType]} 
                             loading = {loading} whenClicked = {manageClick}/>
                         </div>
                     )
                 }
                 else {
                     return (
-                    <DashboardChart type = {chartType} height = "small" data = {allChartData[chartType]} 
+                    <DashboardChart type = {chartType} height = {smallHeight} data = {allChartData[chartType]} 
                     loading = {loading} whenClicked = {manageClick}/>
                     )
                 }
                 
             })}
-
-            {/* <div className = "big-chart">
-                <ChartLine height = "big" data = {allChartData[chartType]} loading = {loading}/>
-            </div> */}
-            {/* <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
-            <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
-            <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/> */}
         </div>
         </div>
         :
         <div>Loading ...</div>
     )
-
-    // switch(topChart) {
-    //     case "Line":
-    //         return (
-    //         <div className = "container">
-    //             <Test />
-    //             <div className = "dashboard">
-    //                 <div className = "big-chart">
-    //                     <ChartLine height = "big" whenClicked = {manageClick}/>
-    //                 </div>
-    //                 <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
-    //                 <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
-    //                 <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
-    //             </div>
-    //         </div>
-    //         )
-    //     case "subject":
-    //         return (
-    //             <div className = "container">
-    //                 <div className = "dashboard">
-    //                     <div className = "big-chart">
-    //                         <ChartPie height = "big" filter = "subject" whenClicked = {manageClick}/>
-    //                     </div>
-    //                     <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
-    //                     <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
-    //                     <ChartLine height = "small" whenClicked = {manageClick}/>
-    //                 </div>
-    //             </div>
-    //         )
-    //     case "type":
-    //         return (
-    //             <div className = "container">
-    //             <div className = "dashboard">
-    //                 <div className = "big-chart">
-    //                     <ChartPie height = "big" filter = "type" whenClicked = {manageClick}/>
-    //                 </div>
-    //                 <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
-    //                 <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
-    //                 <ChartLine height = "small" whenClicked = {manageClick}/>
-    //             </div>
-    //         </div>
-    //         )
-    //     case "Stack":
-    //         return (
-    //             <div className = "container">
-    //             <div className = "dashboard">
-    //                 <div className = "big-chart">
-    //                     <ChartStack height = "big" filter = "type" whenClicked = {manageClick}/>
-    //                 </div>
-    //                 <ChartLine height = "small" whenClicked = {manageClick}/>
-    //                 <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
-    //                 <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
-    //             </div>
-    //             </div>
-    //         )
-    //     default: 
-    //         return (
-    //             <div className = "container">
-    //             <div className = "dashboard">
-    //                 <div className = "big-chart">
-    //                     <ChartLine height = "big" whenClicked = {manageClick}/>
-    //                 </div>
-    //                 <ChartStack height = "small" filter = "type" whenClicked = {manageClick}/>
-    //                 <ChartPie height = "small" filter = "subject" whenClicked = {manageClick}/>
-    //                 <ChartPie height = "small" filter = "type" whenClicked = {manageClick}/>
-    //             </div>
-    //             </div>
-    //         )
-    // }
-
 }

@@ -1,8 +1,6 @@
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
-import axios from 'axios';
-import useAxios from "../hooks/useAxios"
-import { useEffect, useState } from 'react';
 
+// Need to have test data to avoid getting errors while the components are loading
 const testData = [
   { id: 0, value: 10, label: 'Maths'},
   { id: 1, value: 15, label: 'Science'},
@@ -10,28 +8,6 @@ const testData = [
 ]
 
 export default function ChartPie(props) {
-
-  // const [pieData, setPieData] = useState(testData)
-  // const {loading, error, value} = useAxios(`/study/${props.filter}`, 
-  //   {method: 'get', 
-  //   params: {start_date: "2024-05-01", end_date: "2024-07-01"}}
-  // )
-
-  // function wrangle_data(data) {
-  //   const newData = data.map((row, index) => {
-  //     return ({id: index, 
-  //     value: row.study_completed, 
-  //     label: props.filter === 'subject'? row.subject: row.study_type})
-  //   })
-  //   return newData
-  // }
-
-  // useEffect(() => {
-  //   if (value) {
-  //       setPieData(wrangle_data(value))
-  //   }
-  //   }, [value]
-  // )
 
   return (
     <div onClick = {() => {props.whenClicked(props.name)}}>
@@ -52,7 +28,7 @@ export default function ChartPie(props) {
             fontWeight: 'bold',
           },
         }}
-        height = {props.height === "big"? 300 : 150}
+        height = {props.height}
         />
     </div>
   );
