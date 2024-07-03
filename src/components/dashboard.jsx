@@ -4,9 +4,8 @@ import DashboardChart from "./dashboard-chart"
 import Test from "./test"
 import DatePickerValue from "./date-picker"
 
-export default function Dashboard() {
+export default function Dashboard({loading, error, allChartData}) {
 
-    // const [topChart, setTopChart] = useState("Line")
     const [dashboardOrder, setDashboardOrder] = useState([
         'line',
         'pieSubject',
@@ -14,21 +13,10 @@ export default function Dashboard() {
         'stack'
     ])
 
-    const start_date = "2024-05-01"
-    const end_date = "2024-07-01"
-
-    const {loading, error, allChartData} = useUpdateDashboard({start_date: start_date, end_date: end_date})
-    // console.log(allChartData)
-
     function manageClick(chart) {
         console.log(`${chart} chart has been clicked`)
         let currentOrder = dashboardOrder.indexOf(chart)
         setDashboardOrder(prevOrder => [chart, ...prevOrder.filter(item => item !== chart)])
-        // setDashboardOrder(prevOrder => [chart, ...prevOrder])
-        // console.log(dashboardOrder.splice(currentOrder, 1))
-        // console.log(dashboardOrder.splice(currentOrder, 1)[0])
-        // console.log(dashboardOrder.unshift(dashboardOrder.splice(currentOrder, 1)[0]))
-        // setTopChart(chart)
     }
 
     return (
@@ -38,7 +26,6 @@ export default function Dashboard() {
             {console.log(dashboardOrder)}
             {dashboardOrder.map((chartType, index) => {
                 if (index === 0) {
-                    // console.log(loading, allChartData)
                     return (
                         <div className = "big-chart">
                             <DashboardChart type = {chartType} height = "big" data = {allChartData[chartType]} 

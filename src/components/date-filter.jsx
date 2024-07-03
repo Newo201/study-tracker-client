@@ -9,35 +9,35 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 // By default want to set the date range to the start of the current week and 
 // the previous four weeks before that point
-var curr = new Date()
-const last = curr.getDate() - curr.getDay()
-const first = last - 28
+// var curr = new Date()
+// const last = curr.getDate() - curr.getDay()
+// const first = last - 28
 
-var endDate = curr.toLocaleDateString()
-var formattedEndDate = endDate.split("/").reverse().join("-")
-var startDate = new Date(curr.setDate(first)).toLocaleDateString()
-var formattedStartDate = startDate.split("/").reverse().join("-")
+// var endDate = curr.toLocaleDateString()
+// var formattedEndDate = endDate.split("/").reverse().join("-")
+// var startDate = new Date(curr.setDate(first)).toLocaleDateString()
+// var formattedStartDate = startDate.split("/").reverse().join("-")
 
-export default function DateFilter() {
+export default function DateFilter({dateRange, handleChange}) {
 
-    const [dateRange, setDateRange] = useState({
-        'startDate': formattedStartDate, 
-        'endDate': formattedEndDate
-    })
+    // const [dateRange, setDateRange] = useState({
+    //     'startDate': formattedStartDate, 
+    //     'endDate': formattedEndDate
+    // })
 
-    function handleChange(date, label) {
-        var ausDate = (new Date(date))
-        var dateString = ausDate.toLocaleDateString()
+    // function handleChange(date, label) {
+    //     var ausDate = (new Date(date))
+    //     var dateString = ausDate.toLocaleDateString()
         
-        var formattedDateString = (dateString.split("/").reverse().join("-"))
-        setDateRange(prevRange => {
-            return {...prevRange, [label]: formattedDateString}
-        })
-    }
+    //     var formattedDateString = (dateString.split("/").reverse().join("-"))
+    //     setDateRange(prevRange => {
+    //         return {...prevRange, [label]: formattedDateString}
+    //     })
+    // }
 
-    useEffect(() => {
-        console.log(dateRange)
-    }, [dateRange])
+    // useEffect(() => {
+    //     console.log(dateRange)
+    // }, [dateRange])
 
     return (
         <div className = "container py-3">

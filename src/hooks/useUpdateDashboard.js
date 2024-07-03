@@ -76,7 +76,7 @@ function wrangleStackData(data) {
 
 // Custom Hook Logic
 
-export default function useUpdateDashboard(date_range) {
+export default function useUpdateDashboard(date_range, dependencies = []) {
 
     const [allChartData, setAllChartData] = useState({})
 
@@ -89,7 +89,7 @@ export default function useUpdateDashboard(date_range) {
         {url: "/study/type", method: "get", params: {start_date, end_date, filterWeek: true}}
     ]
 
-    const {loading, error, value} = useAxiosMultiple(configs, [])
+    const {loading, error, value} = useAxiosMultiple(configs, dependencies)
 
     // const {loading, error, value} = useAxiosMultiple(configs, [])
     // console.log(loading, value)
