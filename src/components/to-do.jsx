@@ -11,7 +11,11 @@ const typeList = ['Lectures', 'Tutorials', 'Assignments']
 
 export default function ToDo() {
 
-  const [editing, setEditing] = useState(true)
+  const [editing, setEditing] = useState(false)
+
+  function changeEdit() {
+    setEditing(prevEdit => !prevEdit)
+  }
 
 
   return (
@@ -26,15 +30,21 @@ export default function ToDo() {
             <Form.Control as="textarea" rows={3} />
         </Form.Group>
         </Form>
-        <CardNav subjectList={subjectList} typeList={typeList}/>
+        <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} changeEdit = {changeEdit}/>
       </Card.Body>
     </Card>
     :
     <Card style={{ width: '18rem' }}>
+        <Card.Body>
         <Card.Text>
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
+        <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} changeEdit = {changeEdit}/>
+        </Card.Body>
+        <Container>
+        <Button variant = "success">Mark Complete</Button>
+        </Container>
     </Card>
   );
 }

@@ -67,7 +67,8 @@ The dashboard will have a few different visualisations:
 #### Study Log Component
 
 - Create a ToDo component with add, edit, delete capabilities
-    - Use the bootstrap features
+    - Edit Layout
+    - Normal Layout
 - Allow user to select different type and subject of study
     - Ideally they should be able to do this on the ToDo card as they are adding/editing it (e.g. with dropdowns)
 - Connect the ToDos to a database
