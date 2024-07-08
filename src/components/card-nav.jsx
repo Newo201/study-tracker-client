@@ -20,34 +20,40 @@ export default function CardNav({subjectList, typeList, editing, changeEdit}) {
 
   return (
     editing ?
-    <Navbar expand="lg">
-      <Container fluid>
-        <div className = "justify-content-between align-items-between">
-                <Nav style={{ width: '100%' }}>
-                    <NavDropdown
-                    id="subjects"
-                    title={currentChoices['Subject']}
-                    onChange = {e => console.log(e)}
+      <Container>
+          <Row style={{ width: '100%' }}>
+              {/*First component determines what subject we choose*/}
+              <Col xs = {4}>
+                <NavDropdown
+                id="subjects"
+                title={currentChoices['Subject']}
+                onChange = {e => console.log(e)}
+                >
+                {subjectList.map(subject => {
+                    return <NavDropdown.Item id = {subject} 
+                    onClick = {e => handleChange(e, 'Subject')}>{subject}</NavDropdown.Item>
+                })}
+                </NavDropdown>
+              </Col>
+              {/*Second Component is the update button which saves the ToDo component */}
+              <Col xs = {4}>
+                <Button variant="primary" onClick = {changeEdit}>Update</Button>
+              </Col>
+              {/*Third component determines what type we choose*/}
+              <Col xs = {4}>
+                <NavDropdown
+                    id ="types"
+                    title={currentChoices['Type']}
                     >
-                    {subjectList.map(subject => {
-                        return <NavDropdown.Item id = {subject} 
-                        onClick = {e => handleChange(e, 'Subject')}>{subject}</NavDropdown.Item>
+                    {typeList.map(type => {
+                        return <NavDropdown.Item id = {type}
+                        onClick = {e => handleChange(e, 'Type')}>{type}</NavDropdown.Item>
                     })}
-                    </NavDropdown>
-                    <Button variant="primary" onClick = {changeEdit}>Update</Button>
-                    <NavDropdown
-                        id ="types"
-                        title={currentChoices['Type']}
-                        >
-                        {typeList.map(type => {
-                            return <NavDropdown.Item id = {type}
-                            onClick = {e => handleChange(e, 'Type')}>{type}</NavDropdown.Item>
-                        })}
-                    </NavDropdown>
-                </Nav>
-        </div>
+                </NavDropdown>
+              </Col>
+
+          </Row>
       </Container>
-    </Navbar>
     :
     <Container>
         <Row>
@@ -55,7 +61,6 @@ export default function CardNav({subjectList, typeList, editing, changeEdit}) {
               <Navbar.Text>{currentChoices['Subject']}</Navbar.Text>
             </Col>
             <Col xs = {4}>
-              <Button variant="primary" onClick = {changeEdit}>Edit</Button>
             </Col>
             <Col xs = {4}>
               <Navbar.Text>{currentChoices['Type']}</Navbar.Text>
