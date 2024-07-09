@@ -25,6 +25,8 @@ export default function ChartStack(props) {
   // The first component of the data is the x-axis labels
   // The second component of the data is the corresponding stacks
 
+  console.log(props.data)
+
   return (
     <div onClick = {() => {props.whenClicked("stack")}}>
       <h4>Study Completed Per Week</h4>
