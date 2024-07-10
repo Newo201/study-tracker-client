@@ -17,10 +17,10 @@ function App() {
 
   return (
     <div className="App">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DashboardDisplay />
-      </LocalizationProvider>
-      {/* <ToDoDisplay ToDoList={[1,2,3]}/> */}
+      </LocalizationProvider> */}
+      <ToDoDisplay ToDoList={[1,2,3]}/>
 
 
     </div>

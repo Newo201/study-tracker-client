@@ -7,16 +7,16 @@ import { useState } from 'react';
 import Row from "react-bootstrap/Row"
 import Col from 'react-bootstrap/Col';
 
-export default function CardNav({subjectList, typeList, editing, changeEdit}) {
+export default function CardNav({item, subjectList, typeList, editing, changeEdit, update}) {
 
-  const [currentChoices, setCurrentChoices] = useState({'Subject': 'Maths', 'Type': 'Lectures'})
+  // const [currentChoices, setCurrentChoices] = useState({'Subject': 'Maths', 'Type': 'Lectures'})
 
-  function handleChange(e, name) {
-    const {id} = e.target
-    setCurrentChoices(prevChoices => {
-        return {...prevChoices, [name]: id}
-    })
-  }
+  // function handleChange(e, name) {
+  //   const {id} = e.target
+  //   setCurrentChoices(prevChoices => {
+  //       return {...prevChoices, [name]: id}
+  //   })
+  // }
 
   return (
     editing ?
@@ -26,12 +26,12 @@ export default function CardNav({subjectList, typeList, editing, changeEdit}) {
               <Col xs = {4}>
                 <NavDropdown
                 id="subjects"
-                title={currentChoices['Subject']}
-                onChange = {e => console.log(e)}
+                name = "subject"
+                title={item['subject']}
                 >
                 {subjectList.map(subject => {
-                    return <NavDropdown.Item id = {subject} 
-                    onClick = {e => handleChange(e, 'Subject')}>{subject}</NavDropdown.Item>
+                    return <NavDropdown.Item id = {subject} name = "subject"
+                    onClick = {e => update(e)}>{subject}</NavDropdown.Item>
                 })}
                 </NavDropdown>
               </Col>
@@ -43,11 +43,12 @@ export default function CardNav({subjectList, typeList, editing, changeEdit}) {
               <Col xs = {4}>
                 <NavDropdown
                     id ="types"
-                    title={currentChoices['Type']}
+                    name = "study_type"
+                    title={item["study_type"]}
                     >
                     {typeList.map(type => {
-                        return <NavDropdown.Item id = {type}
-                        onClick = {e => handleChange(e, 'Type')}>{type}</NavDropdown.Item>
+                        return <NavDropdown.Item id = {type} name = "study_type"
+                        onClick = {e => update(e)}>{type}</NavDropdown.Item>
                     })}
                 </NavDropdown>
               </Col>
@@ -58,12 +59,12 @@ export default function CardNav({subjectList, typeList, editing, changeEdit}) {
     <Container>
         <Row>
             <Col xs = {4}>
-              <Navbar.Text>{currentChoices['Subject']}</Navbar.Text>
+              <Navbar.Text>{item['subject']}</Navbar.Text>
             </Col>
             <Col xs = {4}>
             </Col>
             <Col xs = {4}>
-              <Navbar.Text>{currentChoices['Type']}</Navbar.Text>
+              <Navbar.Text>{item["study_type"]}</Navbar.Text>
             </Col>
         </Row>
     </Container>

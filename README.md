@@ -30,10 +30,13 @@ containing a date, study type (e.g. assignment, lecture etc.), subject and study
     - GET /study ✓
     - GET /study/subject ✓
     - GET /study/type ✓
-    - POST /study/add
-    - PUT/PATCH /study/:id
-    - DELETE /study:/id
-- Backend testing
+    - POST /study ✓
+    - POST /study/duplicate/:id ✓
+    - PUT/PATCH /study/:id ✓
+    - PATCH /study/completed/:id ✓
+    - DELETE /study:/id ✓
+- Backend testing ✓
+- Error Handling
 
 ## Client Side
 
@@ -73,10 +76,10 @@ The dashboard will have a few different visualisations:
 - Allow user to select different type and subject of study ✓
     - Ideally they should be able to do this on the ToDo card as they are adding/editing it (e.g. with dropdowns) ✓
 - Have a icon/button where a user can create a new ToDo on the same page
-- Allow user to remove ToDos by either completing or deleting
 - Create a page to display the todos
     - Order based on most recent
     - Also have a recently completed section
+- Allow user to remove ToDos by either completing or deleting
 - Connect the ToDos to a database
     - Find all ToDos outstanding
     - Find ToDos completed in the last 30 days (display 6 at most)
@@ -86,3 +89,5 @@ The dashboard will have a few different visualisations:
     - Remove the ToDo from the list or move it to a different section (e.g. a completed page)
 - Create a form where users can add new study types and subjects
 - Allow users to add common ToDos with one click
+    - Duplicate endpoint in the backend
+    - Duplicate icon in the frontend

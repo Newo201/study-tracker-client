@@ -13,14 +13,29 @@ import Col from 'react-bootstrap/esm/Col';
 const subjectList = ['English', 'Maths', 'Science']
 const typeList = ['Lectures', 'Tutorials', 'Assignments']
 
-export default function ToDo() {
+export default function ToDo({item}) {
 
   const [editing, setEditing] = useState(false)
 
-  const [textContent, setTextContent] = useState("Enter your ToDo")
+  const [toDoContent, setToDoContent] = useState(item)
 
   function changeEdit() {
     setEditing(prevEdit => !prevEdit)
+  }
+
+  function updateContent(e) {
+    const { name, value, id } = e.target;
+    console.log(name, value, id)
+    if (value) {
+      setToDoContent((prevValue) => {
+        return { ...prevValue, [name]: value };
+      });
+    } else {
+      console.log("Hello")
+      setToDoContent((prevValue) => {
+        return { ...prevValue, [name]: id};
+      });
+    }
   }
 
   return (
@@ -32,19 +47,19 @@ export default function ToDo() {
         <Selection /> */}
         <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Control as="textarea" rows = {5} value = {textContent} onChange = {e => setTextContent(e.target.value)}/>
+            <Form.Control as="textarea" name = "task" rows = {5} value = {toDoContent.task} onChange = {e => updateContent(e)}/>
         </Form.Group>
         </Form>
-        <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} changeEdit = {changeEdit}/>
+        <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} changeEdit = {changeEdit} item = {toDoContent} update = {updateContent}/>
       </Card.Body>
     </Card>
     :
     <Card>
         <Card.Body>
         <h5>
-            {textContent}
+          {toDoContent.task}
         </h5>
-        <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} changeEdit = {changeEdit}/>
+        <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} changeEdit = {changeEdit} item = {toDoContent} update = {updateContent}/>
         </Card.Body>
         <Container>
           <Row>
