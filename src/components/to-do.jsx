@@ -13,13 +13,16 @@ import Col from 'react-bootstrap/esm/Col';
 const subjectList = ['English', 'Maths', 'Science']
 const typeList = ['Lectures', 'Tutorials', 'Assignments']
 
-export default function ToDo({item}) {
+export default function ToDo({item, updateToDo, deleteToDo}) {
 
   const [editing, setEditing] = useState(false)
 
   const [toDoContent, setToDoContent] = useState(item)
 
   function changeEdit() {
+    if (editing) {
+      updateToDo(toDoContent)
+    }
     setEditing(prevEdit => !prevEdit)
   }
 
@@ -64,7 +67,7 @@ export default function ToDo({item}) {
         <Container>
           <Row>
             <Col>
-              <h2><MdDelete/></h2>
+              <h2><MdDelete onClick = {() => deleteToDo(toDoContent)}/></h2>
             </Col>
             <Col>
               <Button variant = "secondary" onClick = {changeEdit}>Edit</Button>
