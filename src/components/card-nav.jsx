@@ -7,7 +7,10 @@ import { useState } from 'react';
 import Row from "react-bootstrap/Row"
 import Col from 'react-bootstrap/Col';
 
-export default function CardNav({item, subjectList, typeList, editing, changeEdit, update}) {
+export default function CardNav({
+  item, subjectList, typeList, editing, 
+  changeEdit, update, isNew, createToDo
+}) {
 
   // const [currentChoices, setCurrentChoices] = useState({'Subject': 'Maths', 'Type': 'Lectures'})
 
@@ -37,7 +40,11 @@ export default function CardNav({item, subjectList, typeList, editing, changeEdi
               </Col>
               {/*Second Component is the update button which saves the ToDo component */}
               <Col xs = {4}>
-                <Button variant="primary" onClick = {changeEdit}>Update</Button>
+                {
+                !isNew ? <Button variant="primary" onClick = {changeEdit}>Update</Button>
+                : <Button variant="primary" onClick = {createToDo}>Create</Button>
+                } 
+                
               </Col>
               {/*Third component determines what type we choose*/}
               <Col xs = {4}>

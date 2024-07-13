@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/esm/Col';
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import useAxios from "../hooks/useAxios";
+import ToDoHeader from "./to-do-header";
 
 let ToDoList = [
     {'id': 1, 'task': 'Complete English Assignment', 'subject': 'English', 'study_type': 'Assignment'},
@@ -27,6 +28,23 @@ export default function ToDoDisplay() {
         console.log("Calling Backend")
         const newData = axios.get("/study").then(res => setAllToDos(res.data))
     }, [])
+
+    function initToDo() {
+        // Find the right ID to add
+        const ids = allToDos.map(todo => todo.id)
+        const maxid = Math.max(...ids)
+        setAllToDos(prevToDos => [
+            ...prevToDos, 
+            {'id': maxid + 1, 'task': '', 'subject': '', 'study_type': ''}
+        ])
+    }
+
+    function addToDo(content) {
+        setAllToDos(prevValue => {
+            return [...prevValue.slice(0, prevValue.length - 1), content]
+        })
+        axios.post("/study", content)
+    }
 
     function updateToDo(content) {
         // // Update the FrontEnd
@@ -57,9 +75,11 @@ export default function ToDoDisplay() {
 
     return (
        <Container>
+        <ToDoHeader initToDo={initToDo}/>
         <Row>
             {allToDos.map(todo => {
-                return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
+                return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
+                addToDo = {addToDo} updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
             })}
         </Row>
        </Container>
