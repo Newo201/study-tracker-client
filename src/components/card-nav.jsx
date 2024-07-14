@@ -42,7 +42,7 @@ export default function CardNav({
               <Col xs = {4}>
                 {
                 !isNew ? <Button variant="primary" onClick = {changeEdit}>Update</Button>
-                : <Button variant="primary" onClick = {createToDo}>Create</Button>
+                : <Button variant="primary" onClick = {changeEdit}>Create</Button>
                 } 
                 
               </Col>

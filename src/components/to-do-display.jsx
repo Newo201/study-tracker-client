@@ -15,43 +15,53 @@ let ToDoList = [
 
 export default function ToDoDisplay() {
 
-    // const {loading, error, data} = useAxios("/study")
+    const [outstandingToDos, setOutstandingToDos] = useState(ToDoList)
+    const [completedToDos, setCompletedToDos] = useState(ToDoList)
 
-    const [allToDos, setAllToDos] = useState(ToDoList)
-
-    // async function recallData() {
-    //     const newData = await axios.get("/study")
-    //     setAllToDos(newData)
-    // }
-
+    // Load the data from the backend
     useEffect(() => {
         console.log("Calling Backend")
-        const newData = axios.get("/study").then(res => setAllToDos(res.data))
+        axios.get("/study/outstanding").then(res => setOutstandingToDos(res.data))
+        axios.get("/study/completed").then(res => setCompletedToDos(res.data))
     }, [])
 
+    // Need to replace this with a backend query
     function initToDo() {
+        axios.post("/study", {'study_type': 'Select', 'subject': 'Select', 'task': ''})
+        .then(res => setOutstandingToDos(prevToDos => [
+            ...prevToDos,
+            res.data
+        ]))
         // Find the right ID to add
-        const ids = allToDos.map(todo => todo.id)
-        const maxid = Math.max(...ids)
-        setAllToDos(prevToDos => [
-            ...prevToDos, 
-            {'id': maxid + 1, 'task': '', 'subject': '', 'study_type': ''}
-        ])
+        // const ids = outstandingToDos.map(todo => todo.id)
+        // const maxid = Math.max(...ids)
+        // setOutstandingToDos(prevToDos => [
+        //     ...prevToDos, 
+        //     {'id': maxid + 1, 'task': '', 'subject': '', 'study_type': ''}
+        // ])
     }
 
-    function addToDo(content) {
-        setAllToDos(prevValue => {
-            return [...prevValue.slice(0, prevValue.length - 1), content]
-        })
-        axios.post("/study", content)
+    function duplicateToDo(content) {
+        axios.post(`/study/duplicate/${content.id}`)
+        .then(res => setOutstandingToDos(prevToDos => [
+            ...prevToDos,
+            res.data
+        ]))
     }
+
+    // function addToDo(content) {
+    //     setOutstandingToDos(prevValue => {
+    //         return [...prevValue.slice(0, prevValue.length - 1), content]
+    //     })
+    //     axios.post("/study", content)
+    // }
 
     function updateToDo(content) {
         // // Update the FrontEnd
-        const indexArray = allToDos.map(todo => todo.id)
+        const indexArray = outstandingToDos.map(todo => todo.id)
         const toDoIndex = indexArray.indexOf(content.id)
         console.log(indexArray, toDoIndex)
-        setAllToDos(prevValue => {
+        setOutstandingToDos(prevValue => {
             return [...prevValue.slice(0, toDoIndex), content, ...prevValue.slice(toDoIndex + 1, prevValue.length)]
         })
         // Update the BackEnd
@@ -62,7 +72,7 @@ export default function ToDoDisplay() {
     function deleteToDo(content) {
         // Update the FrontEnd
         console.log(content.id)
-        setAllToDos(prevValue => {
+        setOutstandingToDos(prevValue => {
             return prevValue.filter(todo => todo.id !== content.id)
         })
         // Update the BackEnd
@@ -70,16 +80,23 @@ export default function ToDoDisplay() {
     }
 
     useEffect(() => {
-        console.log(allToDos)
-    }, [allToDos])
+        console.log(outstandingToDos)
+    }, [outstandingToDos])
 
     return (
        <Container>
         <ToDoHeader initToDo={initToDo}/>
         <Row>
-            {allToDos.map(todo => {
+            {outstandingToDos.map(todo => {
                 return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                addToDo = {addToDo} updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
+                updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
+            })}
+        </Row>
+        <h2 className = "py-5">Completed To Dos</h2>
+        <Row>
+            {completedToDos.map(todo => {
+                return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
+                updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
             })}
         </Row>
        </Container>

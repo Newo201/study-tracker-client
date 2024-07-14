@@ -34,11 +34,11 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo}) {
     setEditing(prevEdit => !prevEdit)
   }
 
-  function createToDo() {
-    addToDo(toDoContent)
-    setEditing(false)
-    setIsNew(false)
-  }
+  // function createToDo() {
+  //   addToDo(toDoContent)
+  //   setEditing(false)
+  //   setIsNew(false)
+  // }
 
   function updateContent(e) {
     const { name, value, id } = e.target;
@@ -68,8 +68,7 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo}) {
         </Form.Group>
         </Form>
         <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} 
-        changeEdit = {changeEdit} item = {toDoContent} update = {updateContent} isNew = {isNew}
-        createToDo = {createToDo}/>
+        changeEdit = {changeEdit} item = {toDoContent} update = {updateContent} isNew = {isNew}/>
       </Card.Body>
     </Card>
     :
@@ -79,8 +78,7 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo}) {
           {toDoContent.task}
         </h5>
         <CardNav subjectList={subjectList} typeList={typeList} editing = {editing} 
-        changeEdit = {changeEdit} item = {toDoContent} update = {updateContent} isNew = {isNew}
-        createToDo = {createToDo}/>
+        changeEdit = {changeEdit} item = {toDoContent} update = {updateContent} isNew = {isNew}/>
         </Card.Body>
         <Container>
           <Row>

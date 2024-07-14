@@ -13,16 +13,6 @@ Initially the server side will be relatively simple. It will consist of http req
 retrieve information from a database. The database will consist of study units, with each row
 containing a date, study type (e.g. assignment, lecture etc.), subject and study unit
 
-- GET (/study): the amount of study units completed (may also contain filtering) by week (within a given date range) ✓
-- GET (/study/subject): all study completed by subject (within a given date range) ✓
-- GET (/study/type): all study completed by type (within a given date range) ✓
-- GET (/study/subject/week): all study grouped by week and subject ✓
-- GET (/study/type/week): all study grouped by week and type ✓
-- POST (/study): add a new study unit
-- PUT/PATCH (/study/:id): change an aspect of the study completed
-- DELETE (/study/:id): delete a row from the database
-
-
 ### Server Side ToDos
 
 - Construct the SQL Database and SQL Queries needed to perform filters ✓
@@ -44,6 +34,8 @@ Initially, the client side will contain 3 elements. The first will be a way for 
 a new study unit. The second will be for the user to edit or delete completed study units. The third
 will be an interactive dashboard so that the user can see how much study they have completed.
 
+### Dashboard Component
+
 The dashboard will have a few different visualisations:
 
 - Line chart: a breakdown of how many units of study the user has completed each week
@@ -51,8 +43,6 @@ The dashboard will have a few different visualisations:
 - Stacked Chart: combining these two ideas
 
 ### Client Side ToDos
-
-#### Dashboard Component
 
 - Add titles and axis labels to graphs ✓
 - Create a custom hook for updating the dashboard
@@ -69,25 +59,26 @@ The dashboard will have a few different visualisations:
 
 #### Study Log Component
 
-- Create a ToDo component with add, edit, delete capabilities
+- Create a ToDo component
     - Edit Layout ✓
     - Normal Layout ✓
     - Find complete and delete icons ✓
 - Allow user to select different type and subject of study ✓
     - Ideally they should be able to do this on the ToDo card as they are adding/editing it (e.g. with dropdowns) ✓
-- Have a icon/button where a user can create a new ToDo on the same page
+- Allow the ability for users to update a non-completed to-do component ✓
+    - Frontend ✓
+    - Backend integration ✓
+- Allow for users to delete a non-complete to-do component ✓
+    - Frontend ✓
+    - Backend Integration ✓
+- Have a icon/button where a user can create a new ToDo on the same page ✓
+    - Frontend ✓
+    - Backend Integration ✓
 - Create a page to display the todos
     - Order based on most recent
     - Also have a recently completed section
-- Allow user to remove ToDos by either completing or deleting
-- Connect the ToDos to a database
-    - Find all ToDos outstanding
-    - Find ToDos completed in the last 30 days (display 6 at most)
-    - Allow user to re-add recently completed ToDo to outstanding ToDos
-- Add a edit, complete and delete capability to the database
-    - Make a post request to add the study to the database
-    - Remove the ToDo from the list or move it to a different section (e.g. a completed page)
+- Allow users to copy outstanding or recently completed ToDos
+    - Frontend
+    - Backend Integration
+- Restyle the ToDos
 - Create a form where users can add new study types and subjects
-- Allow users to add common ToDos with one click
-    - Duplicate endpoint in the backend
-    - Duplicate icon in the frontend
