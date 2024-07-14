@@ -1,20 +1,22 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Selection from './selection';
-import CardNav from './card-nav';
-import Form from 'react-bootstrap/Form';
-import { Container } from '@mui/material';
+// Standard Imports
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+// Styling Components
+import {Card, Form, Row, Col} from "react-bootstrap"
 import { MdDelete } from "react-icons/md";
 import { FaCheck, FaRegCopy } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
+import { Container } from '@mui/material';
 
+// Custom Components
+import CardNav from './card-nav';
+
+// Replace with a database query eventually
 const subjectList = ['English', 'Maths', 'Science']
 const typeList = ['Lectures', 'Tutorials', 'Assignments']
 
-export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToDo, copyToDo}) {
+export default function ToDo({item, modifyToDo, ACTIONS}) {
 
   const [editing, setEditing] = useState(false)
   const [isNew, setIsNew] = useState(false)
@@ -30,16 +32,13 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToD
 
   function changeEdit() {
     if (editing) {
-      updateToDo(toDoContent)
+      modifyToDo({
+        type: ACTIONS.UPDATE, 
+        payload: {'content': toDoContent}
+      })
     }
     setEditing(prevEdit => !prevEdit)
   }
-
-  // function createToDo() {
-  //   addToDo(toDoContent)
-  //   setEditing(false)
-  //   setIsNew(false)
-  // }
 
   function updateContent(e) {
     const { name, value, id } = e.target;
@@ -84,16 +83,40 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToD
         <Container>
           <Row>
             <Col>
-              <h2><MdDelete onClick = {() => deleteToDo(toDoContent)}/></h2>
+              <h2>
+                <MdDelete onClick = {() => {
+                  modifyToDo({
+                    type: ACTIONS.DELETE,
+                    payload: {'content': toDoContent}
+                  })
+                }}/>
+              </h2>
             </Col>
             <Col>
-              <h2><FaRegCopy onClick = {() => copyToDo(toDoContent)}/></h2>
+              <h2>
+                <FaRegCopy onClick = {() => {
+                  axios.post(`/study/duplicate/${toDoContent.id}`).then(res => {
+                    modifyToDo({
+                      type: ACTIONS.INIT,
+                      payload: {'newToDo': res.data}
+                    })
+                  })
+   
+                  }}/>
+              </h2>
             </Col>
             <Col>
               <h2><CiEdit onClick = {changeEdit} /></h2>
             </Col>
             <Col>
-              <h2><FaCheck onClick = {() => completeToDo(toDoContent)}/></h2>
+              <h2>
+                <FaCheck onClick = {() => {
+                  modifyToDo({
+                    type: ACTIONS.COMPLETE,
+                    payload: {'content': toDoContent}
+                  })
+                }}/>
+              </h2>
             </Col>
           </Row>
         </Container>

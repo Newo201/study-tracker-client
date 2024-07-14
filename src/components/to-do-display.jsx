@@ -1,10 +1,14 @@
+// Standard Imports
+import { useEffect, useReducer } from "react";
+import axios from "axios";
+
+// Styling Components
 import Container from "react-bootstrap/esm/Container"
 import Row from "react-bootstrap/esm/Row"
 import ToDo from "./to-do"
 import Col from 'react-bootstrap/esm/Col';
-import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-import useAxios from "../hooks/useAxios";
+
+// Custom Components
 import ToDoHeader from "./to-do-header";
 
 let ToDoList = [
@@ -13,104 +17,114 @@ let ToDoList = [
     {'id': 3, 'task': 'Science Tutorial Prep', 'subject': 'Science', 'study_type': 'Tutorial'}
 ]
 
+function updateToDo(content, ToDos) {
+    // Update Backend
+    axios.patch(`/study/${content.id}`, content)
+    // Update Frontend
+    const indexArray = ToDos['Outstanding'].map(todo => todo.id)
+    const toDoIndex = indexArray.indexOf(content.id)
+    console.log(indexArray, toDoIndex)
+    const oldOutstanding = ToDos['Outstanding']
+    const newOutstanding = [
+        ...oldOutstanding.slice(0, toDoIndex), 
+        content, 
+        ...oldOutstanding.slice(toDoIndex + 1, oldOutstanding.length)
+    ]
+    return {...ToDos, 'Outstanding': newOutstanding}
+}
+
+function deleteToDo(content, ToDos) {
+    // Update the BackEnd
+    axios.delete(`/study/${content.id}`)
+    // Update the FrontEnd
+    const newOutstanding = ToDos['Outstanding'].filter(todo => todo.id !== content.id)
+    return {...ToDos, 'Outstanding': newOutstanding}
+}
+
+function completeToDo(content, ToDos) {
+    // Update the Backend
+    axios.patch(`/study/completed/${content.id}`)
+    // Update the FrontEnd
+    const newOutstanding = ToDos['Outstanding'].filter(todo => todo.id !== content.id)
+    const newCompleted = [content, ...ToDos['Completed']]
+    return {'Completed': newCompleted, 'Outstanding': newOutstanding}
+}
+
+const ACTIONS = {
+    LOAD: "load",
+    INIT: "init",
+    COPY: "copy",
+    UPDATE: "update",
+    COMPLETE: "complete",
+    DELETE: "delete"
+}
+
+function ToDoReducer(ToDos, action) {
+    let newOutstanding
+    let newCompleted
+    switch (action.type) {
+        case ACTIONS.LOAD:
+            return {
+                'Outstanding': action.payload.outstanding, 
+                'Completed': action.payload.completed
+            }
+        case ACTIONS.INIT:
+            newOutstanding = [...ToDos['Outstanding'], action.payload.newToDo]
+            return {...ToDos, 'Outstanding': newOutstanding}
+        case ACTIONS.UPDATE:
+            return updateToDo(action.payload.content, ToDos)
+        case ACTIONS.COMPLETE:
+            return completeToDo(action.payload.content, ToDos)
+        case ACTIONS.DELETE:
+            return deleteToDo(action.payload.content, ToDos)
+    }
+}
+
 export default function ToDoDisplay() {
 
-    const [outstandingToDos, setOutstandingToDos] = useState(ToDoList)
-    const [completedToDos, setCompletedToDos] = useState(ToDoList)
+    const [ToDos, setToDos] = useReducer(ToDoReducer, {'Completed': ToDoList, 'Outstanding': ToDoList})
 
     // Load the data from the backend
     useEffect(() => {
-        console.log("Calling Backend")
-        axios.get("/study/outstanding").then(res => setOutstandingToDos(res.data))
-        axios.get("/study/completed").then(res => setCompletedToDos(res.data))
+        axios.all([
+            axios.get('/study/outstanding'), 
+            axios.get('/study/completed')
+        ]).then(axios.spread((outstandingToDos, completedToDos) => {
+            setToDos({
+                type: ACTIONS.LOAD,
+                payload: {'outstanding': outstandingToDos.data, 'completed': completedToDos.data}
+            })
+        }))
     }, [])
 
-    // Need to replace this with a backend query
-    function initToDo() {
-        axios.post("/study", {'study_type': 'Select', 'subject': 'Select', 'task': ''})
-        .then(res => setOutstandingToDos(prevToDos => [
-            ...prevToDos,
-            res.data
-        ]))
-        // Find the right ID to add
-        // const ids = outstandingToDos.map(todo => todo.id)
-        // const maxid = Math.max(...ids)
-        // setOutstandingToDos(prevToDos => [
-        //     ...prevToDos, 
-        //     {'id': maxid + 1, 'task': '', 'subject': '', 'study_type': ''}
-        // ])
-    }
-
-    function copyToDo(content) {
-        axios.post(`/study/duplicate/${content.id}`)
-        .then(res => setOutstandingToDos(prevToDos => [
-            ...prevToDos,
-            res.data
-        ]))
-    }
-
-    // function addToDo(content) {
-    //     setOutstandingToDos(prevValue => {
-    //         return [...prevValue.slice(0, prevValue.length - 1), content]
-    //     })
-    //     axios.post("/study", content)
-    // }
-
-    function updateToDo(content) {
-        // // Update the FrontEnd
-        const indexArray = outstandingToDos.map(todo => todo.id)
-        const toDoIndex = indexArray.indexOf(content.id)
-        console.log(indexArray, toDoIndex)
-        setOutstandingToDos(prevValue => {
-            return [...prevValue.slice(0, toDoIndex), content, ...prevValue.slice(toDoIndex + 1, prevValue.length)]
-        })
-        // Update the BackEnd
-        axios.patch(`/study/${content.id}`, content)
-
-    }
-
-    function deleteToDo(content) {
-        // Update the FrontEnd
-        console.log(content.id)
-        setOutstandingToDos(prevValue => {
-            return prevValue.filter(todo => todo.id !== content.id)
-        })
-        // Update the BackEnd
-        axios.delete(`/study/${content.id}`)
-    }
-
-    function completeToDo(content) {
-        // Update the FrontEnd
-        setOutstandingToDos(prevValue => {
-            return prevValue.filter(todo => todo.id !== content.id)
-        })
-        setCompletedToDos(prevValue => {
-            return [content, ...prevValue].slice(0, 6)
-        })
-        // Update the Backend
-        axios.patch(`/study/completed/${content.id}`)
-    }
-
-    useEffect(() => {
-        console.log(outstandingToDos)
-    }, [outstandingToDos])
+    // useEffect(() => {
+    //     console.log(ToDos['Outstanding'])
+    // }, [ToDos])
 
     return (
        <Container>
-        <ToDoHeader initToDo={initToDo}/>
+        <ToDoHeader modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
         <Row>
-            {outstandingToDos.map(todo => {
-                return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}
-                copyToDo = {copyToDo}/></Col>
+            {console.log(ToDos)}
+            {ToDos['Outstanding'].map(todo => {
+                return (
+                <Col xs = {4}>
+                    <ToDo key = {todo.id} id = {todo.id} item = {todo} 
+                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
+                </Col>
+                )
             })}
         </Row>
         <h2 className = "py-5">Completed To Dos</h2>
         <Row>
-            {completedToDos.map(todo => {
-                return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}
-                copyToDo={copyToDo}/></Col>
+            {console.log(ToDos['Completed'])}
+            {ToDos['Completed'].map(todo => {
+                return (
+                <Col xs = {4}>
+                    <ToDo key = {todo.id} id = {todo.id} item = {todo} 
+                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
+                </Col>
+                )
             })}
         </Row>
        </Container>

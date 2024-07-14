@@ -77,12 +77,12 @@ The dashboard will have a few different visualisations:
 - Create a page to display the todos ✓
     - Order based on most recent ✓
     - Also have a recently completed section ✓
-- Allow users to mark a todo as completed
-    - Frontend
-    - Backend Integration
-- Allow users to copy outstanding or recently completed ToDos
-    - Frontend
-    - Backend Integration
+- Allow users to mark a todo as completed ✓
+    - Frontend ✓
+    - Backend Integration ✓
+- Allow users to copy outstanding or recently completed ToDos ✓
+    - Frontend ✓
+    - Backend Integration ✓
 - Restyle the ToDos
 - Refactor todo function code into a useReducer hook
 - Create a form where users can add new study types and subjects
