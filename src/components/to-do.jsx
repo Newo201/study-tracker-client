@@ -13,7 +13,7 @@ import Col from 'react-bootstrap/esm/Col';
 const subjectList = ['English', 'Maths', 'Science']
 const typeList = ['Lectures', 'Tutorials', 'Assignments']
 
-export default function ToDo({item, updateToDo, addToDo, deleteToDo}) {
+export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToDo}) {
 
   const [editing, setEditing] = useState(false)
   const [isNew, setIsNew] = useState(false)
@@ -89,7 +89,7 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo}) {
               <Button variant = "secondary" onClick = {changeEdit}>Edit</Button>
             </Col>
             <Col>
-              <h2><FaCheck/></h2>
+              <h2><FaCheck onClick = {() => completeToDo(toDoContent)}/></h2>
             </Col>
           </Row>
         </Container>

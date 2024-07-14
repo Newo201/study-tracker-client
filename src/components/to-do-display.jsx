@@ -79,6 +79,18 @@ export default function ToDoDisplay() {
         axios.delete(`/study/${content.id}`)
     }
 
+    function completeToDo(content) {
+        // Update the FrontEnd
+        setOutstandingToDos(prevValue => {
+            return prevValue.filter(todo => todo.id !== content.id)
+        })
+        setCompletedToDos(prevValue => {
+            return [content, ...prevValue].slice(0, 6)
+        })
+        // Update the Backend
+        axios.patch(`/study/completed/${content.id}`)
+    }
+
     useEffect(() => {
         console.log(outstandingToDos)
     }, [outstandingToDos])
@@ -89,14 +101,14 @@ export default function ToDoDisplay() {
         <Row>
             {outstandingToDos.map(todo => {
                 return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
+                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}/></Col>
             })}
         </Row>
         <h2 className = "py-5">Completed To Dos</h2>
         <Row>
             {completedToDos.map(todo => {
                 return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                updateToDo={updateToDo} deleteToDo={deleteToDo}/></Col>
+                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}/></Col>
             })}
         </Row>
        </Container>
