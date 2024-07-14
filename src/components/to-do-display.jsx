@@ -41,7 +41,7 @@ export default function ToDoDisplay() {
         // ])
     }
 
-    function duplicateToDo(content) {
+    function copyToDo(content) {
         axios.post(`/study/duplicate/${content.id}`)
         .then(res => setOutstandingToDos(prevToDos => [
             ...prevToDos,
@@ -101,14 +101,16 @@ export default function ToDoDisplay() {
         <Row>
             {outstandingToDos.map(todo => {
                 return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}/></Col>
+                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}
+                copyToDo = {copyToDo}/></Col>
             })}
         </Row>
         <h2 className = "py-5">Completed To Dos</h2>
         <Row>
             {completedToDos.map(todo => {
                 return <Col xs = {4}><ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}/></Col>
+                updateToDo={updateToDo} deleteToDo={deleteToDo} completeToDo = {completeToDo}
+                copyToDo={copyToDo}/></Col>
             })}
         </Row>
        </Container>

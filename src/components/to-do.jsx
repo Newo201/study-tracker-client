@@ -6,14 +6,15 @@ import Form from 'react-bootstrap/Form';
 import { Container } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaRegCopy } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 const subjectList = ['English', 'Maths', 'Science']
 const typeList = ['Lectures', 'Tutorials', 'Assignments']
 
-export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToDo}) {
+export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToDo, copyToDo}) {
 
   const [editing, setEditing] = useState(false)
   const [isNew, setIsNew] = useState(false)
@@ -86,7 +87,10 @@ export default function ToDo({item, updateToDo, addToDo, deleteToDo, completeToD
               <h2><MdDelete onClick = {() => deleteToDo(toDoContent)}/></h2>
             </Col>
             <Col>
-              <Button variant = "secondary" onClick = {changeEdit}>Edit</Button>
+              <h2><FaRegCopy onClick = {() => copyToDo(toDoContent)}/></h2>
+            </Col>
+            <Col>
+              <h2><CiEdit onClick = {changeEdit} /></h2>
             </Col>
             <Col>
               <h2><FaCheck onClick = {() => completeToDo(toDoContent)}/></h2>
