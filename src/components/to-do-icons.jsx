@@ -6,13 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { FaCheck, FaRegCopy } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 
-export default function ToDoIcons({modifyToDo, ACTIONS}) {
-
-    const [toDoContent, setToDoContent] = useState(0)
-
-    function changeEdit() {
-        console.log("Hello")
-    }
+export default function ToDoIcons({modifyToDo, ACTIONS, toDoContent, changeEdit}) {
 
     return (
         <Container>

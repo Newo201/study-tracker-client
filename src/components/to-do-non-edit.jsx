@@ -1,7 +1,8 @@
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
 import ToDoIcons from "./to-do-icons";
+import CopyOnly from "./copy-only";
 
-export default function Test() {
+export default function ToDoNonEdit({is_complete, modifyToDo, ACTIONS, toDoContent, changeEdit}) {
     return (
         <Container >
         <Card>
@@ -17,7 +18,9 @@ export default function Test() {
                 <p className = "text-start text-decoration-underline text-secondary opacity-50">Study Type</p>
                 <p className = "text-start fs-5">Lectures</p>
             </Row>
-            <ToDoIcons />
+            {is_complete ? 
+            <CopyOnly modifyToDo={modifyToDo} ACTIONS = {ACTIONS} toDoContent={toDoContent}/> : 
+            <ToDoIcons modifyToDo={modifyToDo} ACTIONS = {ACTIONS} toDoContent={toDoContent} changeEdit={changeEdit}/>}
         </Card>
         </Container>
     )

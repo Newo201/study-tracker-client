@@ -84,5 +84,10 @@ The dashboard will have a few different visualisations:
     - Frontend ✓
     - Backend Integration ✓
 - Restyle the ToDos
+    - Non-complete non-edit ✓
+    - Non-complete edit
+    - Complete
 - Refactor todo function code into a useReducer hook ✓
+- Restyle ToDo page
+- Add a Navbar and a footer
 - Create a form where users can add new study types and subjects
