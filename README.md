@@ -85,8 +85,9 @@ The dashboard will have a few different visualisations:
     - Backend Integration ✓
 - Restyle the ToDos
     - Non-complete non-edit ✓
-    - Non-complete edit
-    - Complete
+    - Non-complete edit ✓
+    - Complete ✓
+    - Reintegrate and Retest todo functionality
 - Refactor todo function code into a useReducer hook ✓
 - Restyle ToDo page
 - Add a Navbar and a footer

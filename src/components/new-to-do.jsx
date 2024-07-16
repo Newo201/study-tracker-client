@@ -16,7 +16,7 @@ import ToDoEdit from './to-do-edit';
 
 export default function NewToDo({item, modifyToDo, ACTIONS, is_complete}) {
 
-    const [editing, setEditing] = useState(true)
+    const [editing, setEditing] = useState(false)
     const [isNew, setIsNew] = useState(false)
 
     const [toDoContent, setToDoContent] = useState(item)
@@ -55,8 +55,10 @@ export default function NewToDo({item, modifyToDo, ACTIONS, is_complete}) {
 
     return(
         <>
-         {editing ? <ToDoEdit item = {toDoContent} update = {updateContent} isNew = {isNew} changeEdit={changeEdit}/> : 
-         <ToDoNonEdit item = {toDoContent} update = {updateContent} is_complete = {is_complete} changeEdit={changeEdit}/>}
+         {editing ? <ToDoEdit item = {toDoContent} update = {updateContent} 
+         isNew = {isNew} changeEdit={changeEdit}/> : 
+         <ToDoNonEdit item = {toDoContent} update = {updateContent} modifyToDo={modifyToDo}
+         is_complete = {is_complete} changeEdit={changeEdit} ACTIONS = {ACTIONS}/>}
         </>
 
     )

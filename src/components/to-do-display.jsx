@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/esm/Col';
 
 // Custom Components
 import ToDoHeader from "./to-do-header";
+import NewToDo from "./new-to-do";
 
 let ToDoList = [
     {'id': 1, 'task': 'Complete English Assignment', 'subject': 'English', 'study_type': 'Assignment'},
@@ -46,7 +47,7 @@ function completeToDo(content, ToDos) {
     axios.patch(`/study/completed/${content.id}`)
     // Update the FrontEnd
     const newOutstanding = ToDos['Outstanding'].filter(todo => todo.id !== content.id)
-    const newCompleted = [content, ...ToDos['Completed']]
+    const newCompleted = [content, ...ToDos['Completed']].slice(0, 6)
     return {'Completed': newCompleted, 'Outstanding': newOutstanding}
 }
 
@@ -109,8 +110,10 @@ export default function ToDoDisplay() {
             {ToDos['Outstanding'].map(todo => {
                 return (
                 <Col xs = {4}>
-                    <ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
+                    {/* <ToDo key = {todo.id} id = {todo.id} item = {todo} 
+                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/> */}
+                    <NewToDo key = {todo.id} id = {todo.id} item = {todo} 
+                    modifyToDo = {setToDos} ACTIONS = {ACTIONS} is_complete = {false}/>
                 </Col>
                 )
             })}
@@ -121,8 +124,10 @@ export default function ToDoDisplay() {
             {ToDos['Completed'].map(todo => {
                 return (
                 <Col xs = {4}>
-                    <ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
+                    {/* <ToDo key = {todo.id} id = {todo.id} item = {todo} 
+                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/> */}
+                    <NewToDo key = {todo.id} id = {todo.id} item = {todo} 
+                    modifyToDo = {setToDos} ACTIONS = {ACTIONS} is_complete = {true}/>
                 </Col>
                 )
             })}

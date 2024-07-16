@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { FaCheck, FaRegCopy } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 
-export default function ToDoIcons({modifyToDo, ACTIONS, toDoContent, changeEdit}) {
+export default function ToDoIcons({modifyToDo, ACTIONS, item, changeEdit}) {
 
     return (
         <Container>
@@ -16,13 +16,13 @@ export default function ToDoIcons({modifyToDo, ACTIONS, toDoContent, changeEdit}
               <MdDelete onClick = {() => {
                 modifyToDo({
                   type: ACTIONS.DELETE,
-                  payload: {'content': toDoContent}
+                  payload: {'content': item}
                 })
               }}/>
             </h2>
             <h2>
               <FaRegCopy onClick = {() => {
-                axios.post(`/study/duplicate/${toDoContent.id}`).then(res => {
+                axios.post(`/study/duplicate/${item.id}`).then(res => {
                   modifyToDo({
                     type: ACTIONS.INIT,
                     payload: {'newToDo': res.data}
@@ -36,7 +36,7 @@ export default function ToDoIcons({modifyToDo, ACTIONS, toDoContent, changeEdit}
               <FaCheck onClick = {() => {
                 modifyToDo({
                   type: ACTIONS.COMPLETE,
-                  payload: {'content': toDoContent}
+                  payload: {'content': item}
                 })
               }}/>
             </h2>

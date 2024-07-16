@@ -18,11 +18,11 @@ import NewToDo from './components/new-to-do';
 // import ChartPie from './components/pie-chart';
 // import ChartStack from './components/stacked-chart';
 
-let ToDoList = [
-  {'id': 1, 'task': 'Complete English Assignment', 'subject': 'English', 'study_type': 'Assignment'},
-  {'id': 2, 'task': 'Watch Maths Lecture', 'subject': 'Maths', 'study_type': 'Lecture'},
-  {'id': 3, 'task': 'Science Tutorial Prep', 'subject': 'Science', 'study_type': 'Tutorial'}
-]
+// let ToDoList = [
+//   {'id': 1, 'task': 'Complete English Assignment', 'subject': 'English', 'study_type': 'Assignment'},
+//   {'id': 2, 'task': 'Watch Maths Lecture', 'subject': 'Maths', 'study_type': 'Lecture'},
+//   {'id': 3, 'task': 'Science Tutorial Prep', 'subject': 'Science', 'study_type': 'Tutorial'}
+// ]
 
 function App() {
 
@@ -31,13 +31,13 @@ function App() {
       {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DashboardDisplay />
       </LocalizationProvider> */}
-      {/* <ToDoDisplay ToDoList={[1,2,3]}/> */}
-      <Container />
+      <ToDoDisplay/>
+      {/* <Container />
       <Row>
         <Col xs = {4}>
           <NewToDo item = {ToDoList[0]}/>
         </Col>
-      </Row>
+      </Row> */}
 
 
 

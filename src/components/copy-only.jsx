@@ -3,14 +3,14 @@ import { useState } from "react";
 import axios from "axios";
 import { FaRegCopy } from "react-icons/fa";
 
-export default function CopyOnly({modifyToDo, ACTIONS, toDoContent}) {
+export default function CopyOnly({modifyToDo, ACTIONS, item}) {
 
     return (
         <Container>
         <Row className = "px-5">
             <h2>
               <FaRegCopy onClick = {() => {
-                axios.post(`/study/duplicate/${toDoContent.id}`).then(res => {
+                axios.post(`/study/duplicate/${item.id}`).then(res => {
                   modifyToDo({
                     type: ACTIONS.INIT,
                     payload: {'newToDo': res.data}
