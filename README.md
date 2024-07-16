@@ -59,7 +59,7 @@ The dashboard will have a few different visualisations:
 
 #### Study Log Component
 
-- Create a ToDo component
+- Create a ToDo component ✓
     - Edit Layout ✓
     - Normal Layout ✓
     - Find complete and delete icons ✓
@@ -87,8 +87,14 @@ The dashboard will have a few different visualisations:
     - Non-complete non-edit ✓
     - Non-complete edit ✓
     - Complete ✓
-    - Reintegrate and Retest todo functionality
+    - Reintegrate and Retest todo functionality ✓
 - Refactor todo function code into a useReducer hook ✓
-- Restyle ToDo page
 - Add a Navbar and a footer
+- Restyle ToDo page
+    - Make ToDos the same height ✓
+    - Make display grid rather than using bootstrap columns ✓
+    - Keep track of the number of todos outstanding and display on the page
+    - Improve layout for smaller screens
+    - Look at other ways of making card content uniform
+- Routing for the ToDo and the Dashboard Page
 - Create a form where users can add new study types and subjects

@@ -8,8 +8,7 @@ import { CiEdit } from "react-icons/ci";
 export default function ToDoIcons({modifyToDo, ACTIONS, item, changeEdit}) {
 
     return (
-        <Container>
-        <Row className = "px-5">
+        <Row className = "px-3">
           <div className = "w-100 d-flex justify-content-between">
             <h2>
               <MdDelete onClick = {() => {
@@ -41,6 +40,5 @@ export default function ToDoIcons({modifyToDo, ACTIONS, item, changeEdit}) {
             </h2>
         </div>
         </Row>
-      </Container>
     )
 }

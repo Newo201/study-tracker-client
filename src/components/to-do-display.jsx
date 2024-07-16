@@ -5,7 +5,6 @@ import axios from "axios";
 // Styling Components
 import Container from "react-bootstrap/esm/Container"
 import Row from "react-bootstrap/esm/Row"
-import ToDo from "../archived_components/to-do"
 import Col from 'react-bootstrap/esm/Col';
 
 // Custom Components
@@ -17,6 +16,8 @@ let ToDoList = [
     {'id': 2, 'task': 'Watch Maths Lecture', 'subject': 'Maths', 'study_type': 'Lecture'},
     {'id': 3, 'task': 'Science Tutorial Prep', 'subject': 'Science', 'study_type': 'Tutorial'}
 ]
+
+// Patch and Delete Functions
 
 function updateToDo(content, ToDos) {
     // Update Backend
@@ -34,13 +35,6 @@ function updateToDo(content, ToDos) {
     return {...ToDos, 'Outstanding': newOutstanding}
 }
 
-function deleteToDo(content, ToDos) {
-    // Update the BackEnd
-    axios.delete(`/study/${content.id}`)
-    // Update the FrontEnd
-    const newOutstanding = ToDos['Outstanding'].filter(todo => todo.id !== content.id)
-    return {...ToDos, 'Outstanding': newOutstanding}
-}
 
 function completeToDo(content, ToDos) {
     // Update the Backend
@@ -49,6 +43,14 @@ function completeToDo(content, ToDos) {
     const newOutstanding = ToDos['Outstanding'].filter(todo => todo.id !== content.id)
     const newCompleted = [content, ...ToDos['Completed']].slice(0, 6)
     return {'Completed': newCompleted, 'Outstanding': newOutstanding}
+}
+
+function deleteToDo(content, ToDos) {
+    // Update the BackEnd
+    axios.delete(`/study/${content.id}`)
+    // Update the FrontEnd
+    const newOutstanding = ToDos['Outstanding'].filter(todo => todo.id !== content.id)
+    return {...ToDos, 'Outstanding': newOutstanding}
 }
 
 const ACTIONS = {
@@ -98,40 +100,27 @@ export default function ToDoDisplay() {
         }))
     }, [])
 
-    // useEffect(() => {
-    //     console.log(ToDos['Outstanding'])
-    // }, [ToDos])
-
     return (
-       <Container>
+        <>
         <ToDoHeader modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
-        <Row>
+        <div className = "to-do-grid align-items-stretch">
             {console.log(ToDos)}
             {ToDos['Outstanding'].map(todo => {
                 return (
-                <Col xs = {4}>
-                    {/* <ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/> */}
                     <NewToDo key = {todo.id} id = {todo.id} item = {todo} 
                     modifyToDo = {setToDos} ACTIONS = {ACTIONS} is_complete = {false}/>
-                </Col>
                 )
             })}
-        </Row>
+        </div>
         <h2 className = "py-5">Completed To Dos</h2>
-        <Row>
-            {console.log(ToDos['Completed'])}
+        <div className = "completed-grid align-items-stretch">
             {ToDos['Completed'].map(todo => {
-                return (
-                <Col xs = {4}>
-                    {/* <ToDo key = {todo.id} id = {todo.id} item = {todo} 
-                    modifyToDo = {setToDos} ACTIONS = {ACTIONS}/> */}
-                    <NewToDo key = {todo.id} id = {todo.id} item = {todo} 
-                    modifyToDo = {setToDos} ACTIONS = {ACTIONS} is_complete = {true}/>
-                </Col>
-                )
-            })}
-        </Row>
-       </Container>
+                    return (
+                        <NewToDo key = {todo.id} id = {todo.id} item = {todo} 
+                        modifyToDo = {setToDos} ACTIONS = {ACTIONS} is_complete = {true}/>
+                    )
+                })}
+        </div>
+        </>
     )
 }
