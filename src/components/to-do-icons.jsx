@@ -1,5 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
-import { useState } from "react";
+import { Container, Row} from "react-bootstrap";
 import axios from "axios";
 
 import { MdDelete } from "react-icons/md";

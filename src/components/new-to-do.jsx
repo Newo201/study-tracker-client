@@ -1,16 +1,6 @@
 // Standard Imports
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-// Styling Components
-import {Card, Form, Row, Col} from "react-bootstrap"
-import { MdDelete } from "react-icons/md";
-import { FaCheck, FaRegCopy } from "react-icons/fa";
-import { CiEdit } from "react-icons/ci";
-import { Container } from '@mui/material';
-
 // Custom Components
-import CardNav from './card-nav';
 import ToDoNonEdit from './to-do-non-edit';
 import ToDoEdit from './to-do-edit';
 
@@ -21,6 +11,8 @@ export default function NewToDo({item, modifyToDo, ACTIONS, is_complete}) {
 
     const [toDoContent, setToDoContent] = useState(item)
 
+    // If we don't have a pre-specified task then the item has been created for the first time
+    // Therefore we should set editing to true and is new to true
     useEffect(() => {
         if (!item.task) {
             setEditing(true)
@@ -28,7 +20,9 @@ export default function NewToDo({item, modifyToDo, ACTIONS, is_complete}) {
         }
     }, [])
 
+    // Toggle between editing and non-editing
     function changeEdit() {
+        // We also need to update the content in the backend
         if (editing) {
             modifyToDo({
             type: ACTIONS.UPDATE, 
@@ -38,6 +32,7 @@ export default function NewToDo({item, modifyToDo, ACTIONS, is_complete}) {
         setEditing(prevEdit => !prevEdit)
     }
 
+    // Update the state of the component when being edited
     function updateContent(e) {
         const { name, value, id } = e.target;
         console.log(name, value, id)

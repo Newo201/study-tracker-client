@@ -5,7 +5,7 @@ import axios from "axios";
 // Styling Components
 import Container from "react-bootstrap/esm/Container"
 import Row from "react-bootstrap/esm/Row"
-import ToDo from "./to-do"
+import ToDo from "../archived_components/to-do"
 import Col from 'react-bootstrap/esm/Col';
 
 // Custom Components
