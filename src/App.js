@@ -14,6 +14,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import ToDoNonEdit from './components/to-do-non-edit';
 import ToDoEdit from './components/to-do-edit';
 import NewToDo from './components/new-to-do';
+import NavBar from './components/navbar';
 // import ChartLine from './components/line-chart';
 // import ChartPie from './components/pie-chart';
 // import ChartStack from './components/stacked-chart';
@@ -31,7 +32,16 @@ function App() {
       {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DashboardDisplay />
       </LocalizationProvider> */}
-      <ToDoDisplay/>
+      <Row>
+        <Col xs = {2}>
+          <NavBar />
+        </Col>
+        <Col xs = {10}>
+          <ToDoDisplay/>
+        </Col>
+      </Row>
+
+
       {/* <Container />
       <Row>
         <Col xs = {4}>

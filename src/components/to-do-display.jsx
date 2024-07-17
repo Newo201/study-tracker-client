@@ -3,9 +3,7 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 
 // Styling Components
-import Container from "react-bootstrap/esm/Container"
-import Row from "react-bootstrap/esm/Row"
-import Col from 'react-bootstrap/esm/Col';
+import {Container} from "react-bootstrap";
 
 // Custom Components
 import ToDoHeader from "./to-do-header";
@@ -101,7 +99,7 @@ export default function ToDoDisplay() {
     }, [])
 
     return (
-        <>
+        <Container>
         <ToDoHeader modifyToDo = {setToDos} ACTIONS = {ACTIONS}/>
         <div className = "to-do-grid align-items-stretch">
             {console.log(ToDos)}
@@ -113,7 +111,7 @@ export default function ToDoDisplay() {
             })}
         </div>
         <h2 className = "py-5">Completed To Dos</h2>
-        <div className = "completed-grid align-items-stretch">
+        <div className = "to-do-grid align-items-stretch">
             {ToDos['Completed'].map(todo => {
                     return (
                         <NewToDo key = {todo.id} id = {todo.id} item = {todo} 
@@ -121,6 +119,6 @@ export default function ToDoDisplay() {
                     )
                 })}
         </div>
-        </>
+        </Container>
     )
 }
